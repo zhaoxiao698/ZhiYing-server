@@ -1,6 +1,6 @@
-package com.zhaoxiao.model;
+package com.zhaoxiao.model.study;
 
-import com.zhaoxiao.entity.Stype;
+import com.zhaoxiao.entity.study.Stype;
 
 import java.util.List;
 

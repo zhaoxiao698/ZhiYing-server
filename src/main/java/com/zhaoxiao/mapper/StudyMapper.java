@@ -1,10 +1,9 @@
 package com.zhaoxiao.mapper;
 
-import com.github.pagehelper.PageInfo;
-import com.zhaoxiao.entity.Banner;
-import com.zhaoxiao.entity.Sentence;
-import com.zhaoxiao.entity.Stype;
-import com.zhaoxiao.model.*;
+import com.zhaoxiao.entity.study.Banner;
+import com.zhaoxiao.entity.study.Sentence;
+import com.zhaoxiao.entity.study.Stype;
+import com.zhaoxiao.model.study.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 

@@ -1,14 +1,11 @@
 package com.zhaoxiao.service;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
-import com.zhaoxiao.entity.Banner;
+import com.zhaoxiao.entity.study.Banner;
 import com.zhaoxiao.mapper.StudyMapper;
-import com.zhaoxiao.model.*;
+import com.zhaoxiao.model.study.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

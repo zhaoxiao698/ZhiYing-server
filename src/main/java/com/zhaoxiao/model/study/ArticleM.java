@@ -1,30 +1,24 @@
-package com.zhaoxiao.entity;
+package com.zhaoxiao.model.study;
 
 import java.util.Date;
 
-public class Article {
+public class ArticleM {
     private Integer id;
-    private Integer channelId;
     private String title;
     private String duration;
     private String img;
-    private String audio;
-    private String video;
     private Integer count;
     private Integer collection;
     private Date addTime;
 
-    public Article() {
+    public ArticleM() {
     }
 
-    public Article(Integer id, Integer channelId, String title, String duration, String img, String audio, String video, Integer count, Integer collection, Date addTime) {
+    public ArticleM(Integer id, String title, String duration, String img, Integer count, Integer collection, Date addTime) {
         this.id = id;
-        this.channelId = channelId;
         this.title = title;
         this.duration = duration;
         this.img = img;
-        this.audio = audio;
-        this.video = video;
         this.count = count;
         this.collection = collection;
         this.addTime = addTime;
@@ -36,14 +30,6 @@ public class Article {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getChannelId() {
-        return channelId;
-    }
-
-    public void setChannelId(Integer channelId) {
-        this.channelId = channelId;
     }
 
     public String getTitle() {
@@ -68,22 +54,6 @@ public class Article {
 
     public void setImg(String img) {
         this.img = img;
-    }
-
-    public String getAudio() {
-        return audio;
-    }
-
-    public void setAudio(String audio) {
-        this.audio = audio;
-    }
-
-    public String getVideo() {
-        return video;
-    }
-
-    public void setVideo(String video) {
-        this.video = video;
     }
 
     public Integer getCount() {

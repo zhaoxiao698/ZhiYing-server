@@ -2,9 +2,8 @@ package com.zhaoxiao.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zhaoxiao.entity.Banner;
-import com.zhaoxiao.entity.Sentence;
-import com.zhaoxiao.model.*;
+import com.zhaoxiao.entity.study.Banner;
+import com.zhaoxiao.model.study.*;
 import com.zhaoxiao.response.BaseResponse;
 import com.zhaoxiao.service.StudyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @BaseResponse
@@ -55,7 +53,7 @@ public class StudyController {
     @GetMapping("/getChannelList")
     public PageInfo<ChannelM> getChannelList(@RequestParam(defaultValue = "1") int pageNo,
                                              @RequestParam(defaultValue = "8") int pageSize,
-                                             int ftypeId,int stypeId){
+                                             int ftypeId, int stypeId){
         PageHelper.startPage(pageNo,pageSize);
         return new PageInfo<>(studyService.getChannelList(ftypeId,stypeId));
     }

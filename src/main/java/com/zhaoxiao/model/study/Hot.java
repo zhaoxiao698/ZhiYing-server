@@ -1,23 +1,25 @@
-package com.zhaoxiao.model;
+package com.zhaoxiao.model.study;
 
 import java.util.Date;
 
-public class ChannelM {
+public class Hot {
     private Integer id;
+    private String ftypeName;
+    private String stypeName;
     private String name;
-    private String info;
     private String img;
     private Integer num;
     private Integer collection;
     private Date lastTime;
 
-    public ChannelM() {
+    public Hot() {
     }
 
-    public ChannelM(Integer id, String name, String info, String img, Integer num, Integer collection, Date lastTime) {
+    public Hot(Integer id, String ftypeName, String stypeName, String name, String img, Integer num, Integer collection, Date lastTime) {
         this.id = id;
+        this.ftypeName = ftypeName;
+        this.stypeName = stypeName;
         this.name = name;
-        this.info = info;
         this.img = img;
         this.num = num;
         this.collection = collection;
@@ -32,20 +34,28 @@ public class ChannelM {
         this.id = id;
     }
 
+    public String getFtypeName() {
+        return ftypeName;
+    }
+
+    public void setFtypeName(String ftypeName) {
+        this.ftypeName = ftypeName;
+    }
+
+    public String getStypeName() {
+        return stypeName;
+    }
+
+    public void setStypeName(String stypeName) {
+        this.stypeName = stypeName;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
     }
 
     public String getImg() {

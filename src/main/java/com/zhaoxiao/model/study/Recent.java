@@ -1,4 +1,4 @@
-package com.zhaoxiao.model;
+package com.zhaoxiao.model.study;
 
 import java.util.Date;
 

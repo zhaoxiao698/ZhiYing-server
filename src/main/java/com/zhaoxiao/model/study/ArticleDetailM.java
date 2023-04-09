@@ -1,27 +1,36 @@
-package com.zhaoxiao.model;
+package com.zhaoxiao.model.study;
+
+import com.zhaoxiao.entity.study.Sentence;
 
 import java.util.Date;
+import java.util.List;
 
-public class ArticleM {
+public class ArticleDetailM {
     private Integer id;
     private String title;
     private String duration;
     private String img;
+    private String audio;
+    private String video;
     private Integer count;
     private Integer collection;
     private Date addTime;
+    private List<Sentence> sentenceList;
 
-    public ArticleM() {
+    public ArticleDetailM() {
     }
 
-    public ArticleM(Integer id, String title, String duration, String img, Integer count, Integer collection, Date addTime) {
+    public ArticleDetailM(Integer id, String title, String duration, String img, String audio, String video, Integer count, Integer collection, Date addTime, List<Sentence> sentenceList) {
         this.id = id;
         this.title = title;
         this.duration = duration;
         this.img = img;
+        this.audio = audio;
+        this.video = video;
         this.count = count;
         this.collection = collection;
         this.addTime = addTime;
+        this.sentenceList = sentenceList;
     }
 
     public Integer getId() {
@@ -56,6 +65,22 @@ public class ArticleM {
         this.img = img;
     }
 
+    public String getAudio() {
+        return audio;
+    }
+
+    public void setAudio(String audio) {
+        this.audio = audio;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
+    }
+
     public Integer getCount() {
         return count;
     }
@@ -78,5 +103,13 @@ public class ArticleM {
 
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
+    }
+
+    public List<Sentence> getSentenceList() {
+        return sentenceList;
+    }
+
+    public void setSentenceList(List<Sentence> sentenceList) {
+        this.sentenceList = sentenceList;
     }
 }

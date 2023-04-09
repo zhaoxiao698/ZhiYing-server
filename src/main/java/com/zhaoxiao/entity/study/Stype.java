@@ -1,4 +1,4 @@
-package com.zhaoxiao.entity;
+package com.zhaoxiao.entity.study;
 
 public class Stype {
     private Integer id;
