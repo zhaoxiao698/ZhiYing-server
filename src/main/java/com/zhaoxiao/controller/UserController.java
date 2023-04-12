@@ -1,6 +1,6 @@
 package com.zhaoxiao.controller;
 
-import com.zhaoxiao.entity.study.User;
+import com.zhaoxiao.entity.mine.User;
 import com.zhaoxiao.model.mine.Login;
 import com.zhaoxiao.response.BaseResponse;
 import com.zhaoxiao.service.UserService;

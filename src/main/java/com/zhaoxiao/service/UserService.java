@@ -1,6 +1,6 @@
 package com.zhaoxiao.service;
 
-import com.zhaoxiao.entity.study.User;
+import com.zhaoxiao.entity.mine.User;
 import com.zhaoxiao.mapper.UserMapper;
 import com.zhaoxiao.model.mine.Login;
 import com.zhaoxiao.util.AccountUtil;

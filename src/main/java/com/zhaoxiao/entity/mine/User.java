@@ -1,4 +1,4 @@
-package com.zhaoxiao.entity.study;
+package com.zhaoxiao.entity.mine;
 
 import java.util.Date;
 
@@ -7,6 +7,7 @@ public class User {
     private String password;
     private String phone;
     private String name;
+    private String avatar;
     private Integer age;
     private String sex;
     private Integer admin;
@@ -15,11 +16,12 @@ public class User {
     public User() {
     }
 
-    public User(String account, String password, String phone, String name, Integer age, String sex, Integer admin, Date addTime) {
+    public User(String account, String password, String phone, String name, String avatar, Integer age, String sex, Integer admin, Date addTime) {
         this.account = account;
         this.password = password;
         this.phone = phone;
         this.name = name;
+        this.avatar = avatar;
         this.age = age;
         this.sex = sex;
         this.admin = admin;
@@ -56,6 +58,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Integer getAge() {

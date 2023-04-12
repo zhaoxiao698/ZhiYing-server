@@ -1,6 +1,6 @@
 package com.zhaoxiao.mapper;
 
-import com.zhaoxiao.entity.study.User;
+import com.zhaoxiao.entity.mine.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
