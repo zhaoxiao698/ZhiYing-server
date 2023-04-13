@@ -89,4 +89,8 @@ public class UserService {
             return userMapper.addUser(user);
         }
     }
+
+    public boolean setPassword(String account, String password) {
+        return userMapper.setPassword(account,password);
+    }
 }

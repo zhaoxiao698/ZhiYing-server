@@ -4,6 +4,7 @@ import com.zhaoxiao.entity.mine.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -34,4 +35,7 @@ public interface UserMapper {
 
     @Select("select account from user where phone = #{phone}")
     String getAccountByPhone(String phone);
+
+    @Update("update user set password=#{password} where account=#{account}")
+    boolean setPassword(String account, String password);
 }

@@ -46,4 +46,9 @@ public class UserController {
     public boolean register(String phone, String password, String name){
         return userService.register(phone,password,name);
     }
+
+    @PostMapping("/setPassword")
+    public boolean setPassword(String account, String password){
+        return userService.setPassword(account,password);
+    }
 }
