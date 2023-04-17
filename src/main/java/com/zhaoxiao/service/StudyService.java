@@ -6,6 +6,7 @@ import com.zhaoxiao.model.study.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -88,5 +89,15 @@ public class StudyService {
         ArticleDetailM articleDetailM = studyMapper.getArticle(articleId);
         articleDetailM.setSentenceList(studyMapper.getSentenceList(articleId));
         return articleDetailM;
+    }
+
+    public boolean addArticleRecord(String account,int articleId) {
+        if (studyMapper.getArticleRecord(account, articleId)==null){
+            studyMapper.addArticleRecord(account,articleId);
+            return true;
+        } else {
+            studyMapper.setArticleRecord(account,articleId,new Date());
+            return true;
+        }
     }
 }

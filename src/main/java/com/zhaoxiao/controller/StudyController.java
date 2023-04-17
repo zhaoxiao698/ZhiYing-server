@@ -77,4 +77,9 @@ public class StudyController {
     public ArticleDetailM getArticleDetail(int articleId){
         return studyService.getArticleDetail(articleId);
     }
+
+    @GetMapping("/addArticleRecord")
+    public boolean addArticleRecord(String account,int articleId){
+        return studyService.addArticleRecord(account, articleId);
+    }
 }

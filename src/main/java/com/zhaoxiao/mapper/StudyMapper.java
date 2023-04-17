@@ -4,9 +4,12 @@ import com.zhaoxiao.entity.study.Banner;
 import com.zhaoxiao.entity.study.Sentence;
 import com.zhaoxiao.entity.study.Stype;
 import com.zhaoxiao.model.study.*;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -52,4 +55,13 @@ public interface StudyMapper {
 
     @Select("select id,articleId,`order`,english,translation,node,`first` from sentence where articleId=#{articleId}")
     List<Sentence> getSentenceList(int articleId);
+
+    @Insert("insert into articleRecord(userAccount,articleId) values(#{account},#{articleId})")
+    void addArticleRecord(String account, int articleId);
+
+    @Update("update articleRecord set addTime=#{addTime} where userAccount=#{account} and articleId=#{articleId}")
+    void setArticleRecord(String account, int articleId, Date addTime);
+
+    @Select("select userAccount from articleRecord where userAccount=#{account} and articleId=#{articleId}")
+    String getArticleRecord(String account, int articleId);
 }
