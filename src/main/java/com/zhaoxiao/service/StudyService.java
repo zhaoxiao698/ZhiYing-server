@@ -1,5 +1,6 @@
 package com.zhaoxiao.service;
 
+import com.zhaoxiao.entity.study.ArticleNote;
 import com.zhaoxiao.entity.study.Banner;
 import com.zhaoxiao.mapper.StudyMapper;
 import com.zhaoxiao.model.study.*;
@@ -85,9 +86,11 @@ public class StudyService {
 //        }
     }
 
-    public ArticleDetailM getArticleDetail(int articleId) {
+    public ArticleDetailM getArticleDetail(String account, int articleId) {
         ArticleDetailM articleDetailM = studyMapper.getArticle(articleId);
         articleDetailM.setSentenceList(studyMapper.getSentenceList(articleId));
+        //设置收藏
+        articleDetailM.setCollect(studyMapper.getCollect(account, articleId) != null);
         return articleDetailM;
     }
 
@@ -99,5 +102,56 @@ public class StudyService {
             studyMapper.setArticleRecord(account,articleId,new Date());
             return true;
         }
+    }
+    public boolean collect(String account, int articleId, boolean collect) {
+        if(collect){
+            if(studyMapper.getCollect(account,articleId)==null) {
+                return studyMapper.addCollect(account, articleId);
+            } else {
+                return true;
+            }
+        } else {
+            if(studyMapper.getCollect(account,articleId)!=null) {
+                return studyMapper.removeCollect(account, articleId);
+            } else {
+                return true;
+            }
+        }
+    }
+
+//    public boolean note(String account, int articleId, boolean note) {
+//        if(note){
+//            if(studyMapper.getNote(account,articleId)==null) {
+//                return studyMapper.addCollect(account, articleId);
+//            } else {
+//                return true;
+//            }
+//        } else {
+//            if(studyMapper.getCollect(account,articleId)!=null) {
+//                return studyMapper.removeCollect(account, articleId);
+//            } else {
+//                return true;
+//            }
+//        }
+//    }
+
+    public boolean saveNote(String account, int articleId, String info) {
+        if(studyMapper.getNote(account,articleId)==null) {
+            return studyMapper.addNote(account, articleId, info);
+        } else {
+            return studyMapper.setNote(account, articleId, info);
+        }
+    }
+
+    public boolean deleteNote(String account, int articleId) {
+        if(studyMapper.getNote(account,articleId)!=null) {
+            return studyMapper.removeNote(account, articleId);
+        } else {
+            return true;
+        }
+    }
+
+    public ArticleNote getNote(String account, int articleId) {
+        return studyMapper.getNote(account,articleId);
     }
 }

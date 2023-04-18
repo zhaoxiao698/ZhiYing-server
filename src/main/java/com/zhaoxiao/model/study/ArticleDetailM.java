@@ -7,6 +7,8 @@ import java.util.List;
 
 public class ArticleDetailM {
     private Integer id;
+    private Integer channelId;
+    private String channelName;
     private String title;
     private String duration;
     private String img;
@@ -16,12 +18,15 @@ public class ArticleDetailM {
     private Integer collection;
     private Date addTime;
     private List<Sentence> sentenceList;
+    private boolean collect;
 
     public ArticleDetailM() {
     }
 
-    public ArticleDetailM(Integer id, String title, String duration, String img, String audio, String video, Integer count, Integer collection, Date addTime, List<Sentence> sentenceList) {
+    public ArticleDetailM(Integer id, Integer channelId, String channelName, String title, String duration, String img, String audio, String video, Integer count, Integer collection, Date addTime, List<Sentence> sentenceList) {
         this.id = id;
+        this.channelId = channelId;
+        this.channelName = channelName;
         this.title = title;
         this.duration = duration;
         this.img = img;
@@ -39,6 +44,22 @@ public class ArticleDetailM {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(Integer channelId) {
+        this.channelId = channelId;
+    }
+
+    public String getChannelName() {
+        return channelName;
+    }
+
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
     }
 
     public String getTitle() {
@@ -111,5 +132,13 @@ public class ArticleDetailM {
 
     public void setSentenceList(List<Sentence> sentenceList) {
         this.sentenceList = sentenceList;
+    }
+
+    public boolean getCollect() {
+        return collect;
+    }
+
+    public void setCollect(boolean collect) {
+        this.collect = collect;
     }
 }

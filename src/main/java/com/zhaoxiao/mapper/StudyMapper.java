@@ -1,13 +1,11 @@
 package com.zhaoxiao.mapper;
 
+import com.zhaoxiao.entity.study.ArticleNote;
 import com.zhaoxiao.entity.study.Banner;
 import com.zhaoxiao.entity.study.Sentence;
 import com.zhaoxiao.entity.study.Stype;
 import com.zhaoxiao.model.study.*;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
 import java.util.List;
@@ -50,7 +48,7 @@ public interface StudyMapper {
             "where c.id=#{channelId} order by ${sort} ${order}")
     List<ArticleM> getArticleList(int channelId, String sort, String order);
 
-    @Select("select id,title,img,duration,audio,video,count,collection,addTime from article where id=#{articleId}")
+    @Select("select article.id,channelId,channel.name channelName,title,article.img,duration,audio,video,count,article.collection,addTime from article join channel on article.channelId=channel.id where article.id=#{articleId}")
     ArticleDetailM getArticle(int articleId);
 
     @Select("select id,articleId,`order`,english,translation,node,`first` from sentence where articleId=#{articleId}")
@@ -64,4 +62,28 @@ public interface StudyMapper {
 
     @Select("select userAccount from articleRecord where userAccount=#{account} and articleId=#{articleId}")
     String getArticleRecord(String account, int articleId);
+
+    @Delete("delete from articleRecord where userAccount=#{account} and articleId=#{articleId}")
+    String removeArticleRecord(String account, int articleId);
+
+    @Select("select userAccount from articleCollection where userAccount=#{account} and articleId=#{articleId}")
+    String getCollect(String account, int articleId);
+
+    @Insert("insert into articleCollection(userAccount,articleId) values(#{account},#{articleId})")
+    boolean addCollect(String account, int articleId);
+
+    @Delete("delete from articleCollection where userAccount=#{account} and articleId=#{articleId}")
+    boolean removeCollect(String account, int articleId);
+
+    @Select("select * from articleNote where userAccount=#{account} and articleId=#{articleId}")
+    ArticleNote getNote(String account, int articleId);
+
+    @Insert("insert into articleNote(userAccount,articleId,info) values(#{account},#{articleId},#{info})")
+    boolean addNote(String account, int articleId, String info);
+
+    @Delete("delete from articleNote where userAccount=#{account} and articleId=#{articleId}")
+    boolean removeNote(String account, int articleId);
+
+    @Update("update articleNote set info=#{info} where userAccount=#{account} and articleId=#{articleId}")
+    boolean setNote(String account, int articleId, String info);
 }

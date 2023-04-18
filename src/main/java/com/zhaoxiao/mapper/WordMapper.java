@@ -48,7 +48,7 @@ public interface WordMapper {
     @Select("select wordId from word where bookId=#{bookId}")
     List<String> getWordSimplePageInfo(String bookId);
 
-    @Select("select wordId from wordCollection where userAccount=#{account} and bookId=#{bookId}")
+    @Select("select wordId from wordCollection where userAccount=#{account} and bookId=#{bookId} order by addTime desc")
     List<String> getCollectionList(String account,String bookId);
 
     @Select("select wordId from wordCollection where userAccount=#{account} and wordId=#{wordId}")

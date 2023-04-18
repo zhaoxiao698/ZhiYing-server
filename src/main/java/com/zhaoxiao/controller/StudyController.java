@@ -2,6 +2,7 @@ package com.zhaoxiao.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zhaoxiao.entity.study.ArticleNote;
 import com.zhaoxiao.entity.study.Banner;
 import com.zhaoxiao.model.study.*;
 import com.zhaoxiao.response.BaseResponse;
@@ -74,12 +75,32 @@ public class StudyController {
     }
 
     @GetMapping("/getArticleDetail")
-    public ArticleDetailM getArticleDetail(int articleId){
-        return studyService.getArticleDetail(articleId);
+    public ArticleDetailM getArticleDetail(String account, int articleId){
+        return studyService.getArticleDetail(account,articleId);
     }
 
     @GetMapping("/addArticleRecord")
     public boolean addArticleRecord(String account,int articleId){
         return studyService.addArticleRecord(account, articleId);
+    }
+
+    @GetMapping("/collect")
+    public boolean collect(String account,int articleId,boolean collect){
+        return studyService.collect(account,articleId,collect);
+    }
+
+    @GetMapping("/saveNote")
+    public boolean saveNote(String account,int articleId,String info){
+        return studyService.saveNote(account,articleId,info);
+    }
+
+    @GetMapping("/deleteNote")
+    public boolean deleteNote(String account,int articleId){
+        return studyService.deleteNote(account,articleId);
+    }
+
+    @GetMapping("/getNote")
+    public ArticleNote getNote(String account, int articleId){
+        return studyService.getNote(account,articleId);
     }
 }
