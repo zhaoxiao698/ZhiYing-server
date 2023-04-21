@@ -114,4 +114,30 @@ public class CommunityService {
     public Topic getTopic(int topicId) {
         return communityMapper.getTopic(topicId);
     }
+
+    public List<TrendM> getTrendCollectionList(String account) {
+        List<TrendM> trendList = communityMapper.getTrendCollectionList(account);
+
+        for (TrendM trend : trendList) {
+            trend.setTopicList(communityMapper.getTopicListOfTrend(trend.getId()));
+        }
+
+        for (TrendM trend : trendList) {
+            trend.setUserList(communityMapper.getUserListOfTrend(trend.getId()));
+        }
+
+        for (TrendM trend : trendList) {
+            getImageViewInfoList(trend);
+        }
+
+        for (TrendM trend : trendList) {
+            trend.setHotComment(communityMapper.getHotComment(trend.getId()));
+        }
+
+        return trendList;
+    }
+
+    public List<Topic> getTopicCollectionList(String account) {
+        return communityMapper.getTopicCollectionList(account);
+    }
 }

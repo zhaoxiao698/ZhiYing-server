@@ -1,5 +1,7 @@
 package com.zhaoxiao.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zhaoxiao.model.test.*;
 import com.zhaoxiao.response.BaseResponse;
 import com.zhaoxiao.service.TestService;
@@ -91,5 +93,18 @@ public class TestController {
                                             @RequestParam(defaultValue = "0")int num,
                                             int type){
         return testService.getTestFtypeList(questionBankId);
+    }
+
+    @GetMapping("/getTestCollectionList")
+    public PageInfo<? extends QuestionM> getTestCollectionList(@RequestParam(defaultValue = "1") int pageNo,
+                                                               @RequestParam(defaultValue = "8") int pageSize,
+                                                               String account, int table){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(testService.getTestCollectionList(account,table));
+    }
+
+    @GetMapping("/getQuestionById")
+    public QuestionM getQuestionById(int questionId, int table){
+        return testService.getQuestionById(questionId,table);
     }
 }

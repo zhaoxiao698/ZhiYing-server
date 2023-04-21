@@ -154,4 +154,12 @@ public class StudyService {
     public ArticleNote getNote(String account, int articleId) {
         return studyMapper.getNote(account,articleId);
     }
+
+    public List<ArticleM> getArticleCollectionList(String account) {
+        return studyMapper.getArticleCollectionList(account);
+    }
+
+    public List<ChannelM> getChannelCollectionList(String account) {
+        return studyMapper.getChannelCollectionList(account);
+    }
 }

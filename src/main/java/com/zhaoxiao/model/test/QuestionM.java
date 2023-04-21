@@ -5,6 +5,7 @@ public class QuestionM {
     private String info;
     private int subQuestionNum;
     private int order;
+    private String subType;
 
     public QuestionM() {
     }
@@ -45,5 +46,13 @@ public class QuestionM {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    public String getSubType() {
+        return subType;
+    }
+
+    public void setSubType(String subType) {
+        this.subType = subType;
     }
 }

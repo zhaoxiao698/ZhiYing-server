@@ -57,4 +57,20 @@ public class CommunityController {
     public Topic getTopic(int topicId){
         return communityService.getTopic(topicId);
     }
+
+    @GetMapping("/getTrendCollectionList")
+    public PageInfo<TrendM> getTrendCollectionList(@RequestParam(defaultValue = "1") int pageNo,
+                                         @RequestParam(defaultValue = "8") int pageSize,
+                                         String account){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(communityService.getTrendCollectionList(account));
+    }
+
+    @GetMapping("/getTopicCollectionList")
+    public PageInfo<Topic> getTopicCollectionList(@RequestParam(defaultValue = "1") int pageNo,
+                                        @RequestParam(defaultValue = "8") int pageSize,
+                                                  String account){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(communityService.getTopicCollectionList(account));
+    }
 }

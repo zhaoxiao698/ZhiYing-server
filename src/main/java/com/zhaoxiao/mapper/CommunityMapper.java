@@ -43,4 +43,11 @@ public interface CommunityMapper {
 
     @Select("select * from topic where id=#{topicId}")
     Topic getTopic(int topicId);
+
+    @Select("select id,t.userAccount,name userName,avatar userAvatar,title,info,t.addTime,`like`,collection,comment,share from " +
+            "trend t join user u on u.account=t.userAccount join trendCollection tc on t.id=tc.trendId where tc.userAccount=#{account} order by tc.addTime desc")
+    List<TrendM> getTrendCollectionList(String account);
+
+    @Select("select * from topic t join topicCollection tc on t.id=tc.topicId where tc.userAccount=#{account} order by tc.addTime desc")
+    List<Topic> getTopicCollectionList(String account);
 }

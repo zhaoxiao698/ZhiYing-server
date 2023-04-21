@@ -86,4 +86,12 @@ public interface StudyMapper {
 
     @Update("update articleNote set info=#{info} where userAccount=#{account} and articleId=#{articleId}")
     boolean setNote(String account, int articleId, String info);
+
+    @Select("select a.id,title,a.img,duration,count,a.collection,a.addTime from article a join channel c on a.channelId=c.id " +
+            "join articleCollection ac on a.id=ac.articleId where ac.userAccount=#{account} order by ac.addTime desc")
+    List<ArticleM> getArticleCollectionList(String account);
+
+    @Select("select c.id,c.name,c.info,c.img,c.num,c.collection,c.lastTime from channel c join " +
+            "channelCollection cc on c.id=cc.channelId where cc.userAccount=#{account} order by cc.addTime desc")
+    List<ChannelM> getChannelCollectionList(String account);
 }
