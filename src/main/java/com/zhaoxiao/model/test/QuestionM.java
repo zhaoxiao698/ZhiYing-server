@@ -6,6 +6,7 @@ public class QuestionM {
     private int subQuestionNum;
     private int order;
     private String subType;
+    private int questionBankId;
 
     public QuestionM() {
     }
@@ -54,5 +55,13 @@ public class QuestionM {
 
     public void setSubType(String subType) {
         this.subType = subType;
+    }
+
+    public int getQuestionBankId() {
+        return questionBankId;
+    }
+
+    public void setQuestionBankId(int questionBankId) {
+        this.questionBankId = questionBankId;
     }
 }

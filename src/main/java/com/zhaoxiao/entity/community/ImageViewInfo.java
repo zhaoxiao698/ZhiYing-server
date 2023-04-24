@@ -1,9 +1,15 @@
 package com.zhaoxiao.entity.community;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("动态")
 public class ImageViewInfo {
 
+    @ApiModelProperty("图片地址")
     private String mUrl;
 
+    @ApiModelProperty("（不用管）")
     private String mDescription = "描述信息";
 
     public ImageViewInfo(String url) {

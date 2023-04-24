@@ -1,23 +1,39 @@
 package com.zhaoxiao.model.study;
 
 import com.zhaoxiao.entity.study.Sentence;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
 import java.util.List;
 
+@ApiModel("文章详情")
 public class ArticleDetailM {
+    @ApiModelProperty("文章id")
     private Integer id;
+    @ApiModelProperty("所属频道id")
     private Integer channelId;
+    @ApiModelProperty("所属频道名称")
     private String channelName;
+    @ApiModelProperty("标题")
     private String title;
+    @ApiModelProperty("音频或视频的时长")
     private String duration;
+    @ApiModelProperty("封面图片地址")
     private String img;
+    @ApiModelProperty("音频地址")
     private String audio;
+    @ApiModelProperty("视频地址")
     private String video;
+    @ApiModelProperty("播放量")
     private Integer count;
+    @ApiModelProperty("收藏量")
     private Integer collection;
+    @ApiModelProperty("添加时间")
     private Date addTime;
+    @ApiModelProperty("包含的句子列表")
     private List<Sentence> sentenceList;
+    @ApiModelProperty("（不用管）")
     private boolean collect;
 
     public ArticleDetailM() {

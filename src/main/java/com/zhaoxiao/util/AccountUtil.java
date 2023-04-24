@@ -20,10 +20,10 @@ public class AccountUtil {
 	 * @param num 要获取多少个用户编号
 	 * @return
 	 */
-	public static List<String> getUserIds(List<String> oldUserIds,int num){
+	public static List<String> getUserIds(List<String> oldUserIds,int num,String append){
 		List<String> ids=new ArrayList<String>();
 		while(ids.size()<num){
-			StringBuffer sb=new StringBuffer().append("zhiying");
+			StringBuffer sb=new StringBuffer().append(append);
 			for(int j=1;j<=10;j++){
 				/*if(j<=3){//前三位获取字母
 					sb.append(getLetter());
@@ -127,7 +127,7 @@ public class AccountUtil {
 	}
  
 	public static void main(String[] args) {
-		List<String> list=getUserIds(new ArrayList(), 100);
+		List<String> list=getUserIds(new ArrayList(), 100,"zhiying");
 		for(String s:list){
 			System.out.println(s);
 		}

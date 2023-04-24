@@ -1,7 +1,13 @@
 package com.zhaoxiao.entity.study;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("二级分类")
 public class Stype {
+    @ApiModelProperty("分类id")
     private Integer id;
+    @ApiModelProperty("名称")
     private String name;
 
     public Stype() {

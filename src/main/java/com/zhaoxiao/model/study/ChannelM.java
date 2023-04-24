@@ -1,14 +1,25 @@
 package com.zhaoxiao.model.study;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel("频道")
 public class ChannelM {
+    @ApiModelProperty("频道id")
     private Integer id;
+    @ApiModelProperty("名称")
     private String name;
+    @ApiModelProperty("描述")
     private String info;
+    @ApiModelProperty("封面图片地址")
     private String img;
+    @ApiModelProperty("包含的文章数量")
     private Integer num;
+    @ApiModelProperty("收藏数量")
     private Integer collection;
+    @ApiModelProperty("最近更新时间")
     private Date lastTime;
 
     public ChannelM() {

@@ -55,7 +55,7 @@ public class UserService {
     private String registerByCode(String phone) {
         //生成账号
         List<String> accountOldList = userMapper.getAccountList();
-        List<String> accountNewList = AccountUtil.getUserIds(accountOldList,1);
+        List<String> accountNewList = AccountUtil.getUserIds(accountOldList,1,"zhiying");
         String accountNew = accountNewList.get(0);
 
         User user = new User();
@@ -73,7 +73,7 @@ public class UserService {
         } else {
             //生成账号
             List<String> accountOldList = userMapper.getAccountList();
-            List<String> accountNewList = AccountUtil.getUserIds(accountOldList,1);
+            List<String> accountNewList = AccountUtil.getUserIds(accountOldList,1,"zhiying");
             String accountNew = accountNewList.get(0);
 
             User user = new User();

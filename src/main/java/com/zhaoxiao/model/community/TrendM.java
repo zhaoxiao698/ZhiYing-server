@@ -3,25 +3,43 @@ package com.zhaoxiao.model.community;
 import com.zhaoxiao.entity.community.ImageViewInfo;
 import com.zhaoxiao.entity.community.Topic;
 import com.zhaoxiao.entity.mine.User;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
 import java.util.List;
 
+@ApiModel("动态")
 public class TrendM {
+    @ApiModelProperty("动态id")
     private int id;
+    @ApiModelProperty("发布动态的人的账号")
     private String userAccount;
+    @ApiModelProperty("发布动态的人的名字")
     private String userName;
+    @ApiModelProperty("发布动态的人的头像地址")
     private String userAvatar;
+    @ApiModelProperty("标题")
     private String title;
+    @ApiModelProperty("内容")
     private String info;
+    @ApiModelProperty("（不用管）")
     private List<Topic> topicList;
+    @ApiModelProperty("（不用管）")
     private List<User> userList;
+    @ApiModelProperty("图片列表")
     private List<ImageViewInfo> imgList;
+    @ApiModelProperty("添加时间")
     private Date addTime;
+    @ApiModelProperty("点赞量")
     private int like;
+    @ApiModelProperty("收藏量")
     private int collection;
+    @ApiModelProperty("评论数")
     private int comment;
+    @ApiModelProperty("分享量")
     private int share;
+    @ApiModelProperty("（不用管）")
     private CommentM hotComment;
 
     public TrendM() {

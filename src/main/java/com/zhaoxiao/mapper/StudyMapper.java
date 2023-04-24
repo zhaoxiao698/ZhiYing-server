@@ -51,7 +51,7 @@ public interface StudyMapper {
     @Select("select article.id,channelId,channel.name channelName,title,article.img,duration,audio,video,count,article.collection,addTime from article join channel on article.channelId=channel.id where article.id=#{articleId}")
     ArticleDetailM getArticle(int articleId);
 
-    @Select("select id,articleId,`order`,english,translation,node,`first` from sentence where articleId=#{articleId}")
+    @Select("select id,articleId,`order`,english,translation,node,`first` from sentence where articleId=#{articleId} order by `order`")
     List<Sentence> getSentenceList(int articleId);
 
     @Insert("insert into articleRecord(userAccount,articleId) values(#{account},#{articleId})")

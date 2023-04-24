@@ -19,6 +19,13 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>jitpack.io</id>-->
+<!--            <url>https://jitpack.io</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -92,6 +99,47 @@
             <artifactId>fastjson2</artifactId>
             <version>2.0.14</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv-platform</artifactId>
+            <version>1.5.5</version>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.github.icoderman</groupId>-->
+<!--            <artifactId>mediainfo</artifactId>-->
+<!--            <version>1.1.0</version>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>it.sauronsoftware</groupId>
+            <artifactId>jave</artifactId>
+            <version>1.0.2</version>
+            <!-- 下面两个是使用system在pom.xml中导入jar -->
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/jave-1.0.2.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.0.RELEASE</version>
+                <configuration>
+                    <mainClass>com.zhaoxiao.APPStarter</mainClass>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

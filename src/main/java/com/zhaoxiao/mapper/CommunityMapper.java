@@ -17,13 +17,13 @@ public interface CommunityMapper {
     @Select("select id,trend.userAccount,name userName,avatar userAvatar,title,info,trend.addTime,`like`,collection,comment,share from attention join trend on attention.userAccount=trend.userAccount join user on user.account=trend.userAccount where fanAccount=#{fanAccount} ${sort} ${order}")
     List<TrendM> getAttentionTrendList(String fanAccount, String sort, String order);
 
-    @Select("select id,userAccount,name userName,avatar userAvatar,title,info,trend.addTime,`like`,collection,comment,share from trend join topicof on topicof.trendId=trend.id join user on user.account=trend.userAccount where topicId=#{topicId} ${sort} ${order}")
+    @Select("select id,userAccount,name userName,avatar userAvatar,title,info,trend.addTime,`like`,collection,comment,share from trend join topicOf on topicOf.trendId=trend.id join user on user.account=trend.userAccount where topicId=#{topicId} ${sort} ${order}")
     List<TrendM> getTopicTrendList(String sort, String order, int topicId);
 
-    @Select("select id,name from topic join topicof on topic.id = topicof.topicId where trendId = #{trendId}")
+    @Select("select id,name from topic join topicOf on topic.id = topicOf.topicId where trendId = #{trendId}")
     List<Topic> getTopicListOfTrend(int trendId);
 
-    @Select("select account,name from user join remindof on user.account = remindof.userAccount where trendId = #{trendId}")
+    @Select("select account,name from user join remindOf on user.account = remindOf.userAccount where trendId = #{trendId}")
     List<User> getUserListOfTrend(int trendId);
 
     @Select("select img from img where trendId = #{trendId}")

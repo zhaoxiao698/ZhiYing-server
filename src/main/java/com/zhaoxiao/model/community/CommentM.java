@@ -1,15 +1,27 @@
 package com.zhaoxiao.model.community;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel("评论")
 public class CommentM {
+    @ApiModelProperty("评论id")
     private int id;
+    @ApiModelProperty("所属动态id")
     private int trendId;
+    @ApiModelProperty("评论的人的账号")
     private String userAccount;
+    @ApiModelProperty("评论的人的名字")
     private String userName;
+    @ApiModelProperty("评论的人的头像地址")
     private String userAvatar;
+    @ApiModelProperty("评论内容")
     private String info;
+    @ApiModelProperty("评论时间")
     private Date addTime;
+    @ApiModelProperty("点赞量")
     private int like;
 
     public CommentM() {

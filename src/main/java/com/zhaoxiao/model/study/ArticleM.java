@@ -1,14 +1,25 @@
 package com.zhaoxiao.model.study;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel("文章")
 public class ArticleM {
+    @ApiModelProperty("文章id")
     private Integer id;
+    @ApiModelProperty("标题")
     private String title;
+    @ApiModelProperty("音频或视频的时长")
     private String duration;
+    @ApiModelProperty("封面图片地址")
     private String img;
+    @ApiModelProperty("播放量")
     private Integer count;
+    @ApiModelProperty("收藏量")
     private Integer collection;
+    @ApiModelProperty("添加时间")
     private Date addTime;
 
     public ArticleM() {

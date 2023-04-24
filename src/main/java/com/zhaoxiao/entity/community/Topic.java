@@ -1,14 +1,25 @@
 package com.zhaoxiao.entity.community;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel("话题")
 public class Topic {
+    @ApiModelProperty("话题id")
     private int id;
+    @ApiModelProperty("名称")
     private String name;
+    @ApiModelProperty("描述")
     private String info;
+    @ApiModelProperty("添加时间")
     private Date addTime;
+    @ApiModelProperty("添加话题的人的账号")
     private String userAccount;
+    @ApiModelProperty("参与人数")
     private int join;
+    @ApiModelProperty("收藏数")
     private int collection;
 
     public Topic() {
