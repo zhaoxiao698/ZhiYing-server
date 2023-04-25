@@ -62,7 +62,7 @@ public class AdminTestControllerNew {
             @ApiImplicitParam(name = "info",value = "题目内容--注意：这里是要用富文本编辑器然后传入富文本编辑器生成的html",required = true),
             @ApiImplicitParam(name = "questionBankId",value = "题库id",required = true),
             @ApiImplicitParam(name = "word",value = "单词列表"),
-            @ApiImplicitParam(name = "audioFile",value = "音频文件--只能传入音频文件"),
+            @ApiImplicitParam(name = "(audioFile)",value = "音频文件--只能传入音频文件"),
             @ApiImplicitParam(name = "type",value = "类型id（二级分类）",required = true),
             @ApiImplicitParam(name = "num",value = "段落数量"),
             @ApiImplicitParam(name = "A",value = "A选项"),
@@ -73,7 +73,7 @@ public class AdminTestControllerNew {
             @ApiImplicitParam(name = "F",value = "F选项"),
             @ApiImplicitParam(name = "G",value = "G选项"),
             @ApiImplicitParam(name = "answer",value = "答案"),
-            @ApiImplicitParam(name = "imgFile",value = "图片文件--只能传入图片文件"),
+            @ApiImplicitParam(name = "(imgFile)",value = "图片文件--只能传入图片文件"),
     })
     @PostMapping("/addQuestion")
     public boolean addQuestion(String info,
@@ -106,7 +106,7 @@ public class AdminTestControllerNew {
             @ApiImplicitParam(name = "info",value = "题目内容--注意：这里是要用富文本编辑器然后传入富文本编辑器生成的html",required = true),
             @ApiImplicitParam(name = "questionBankId",value = "题库id",required = true),
             @ApiImplicitParam(name = "word",value = "单词列表"),
-            @ApiImplicitParam(name = "audioFile",value = "音频文件--只能传入音频文件"),
+            @ApiImplicitParam(name = "(audioFile)",value = "音频文件--只能传入音频文件"),
             @ApiImplicitParam(name = "type",value = "类型id（二级分类）",required = true),
             @ApiImplicitParam(name = "num",value = "段落数量"),
             @ApiImplicitParam(name = "A",value = "A选项"),
@@ -117,7 +117,7 @@ public class AdminTestControllerNew {
             @ApiImplicitParam(name = "F",value = "F选项"),
             @ApiImplicitParam(name = "G",value = "G选项"),
             @ApiImplicitParam(name = "answer",value = "答案"),
-            @ApiImplicitParam(name = "imgFile",value = "图片文件--只能传入图片文件"),
+            @ApiImplicitParam(name = "(imgFile)",value = "图片文件--只能传入图片文件"),
     })
     @PostMapping("/setQuestion")
     public boolean setQuestion(int id,

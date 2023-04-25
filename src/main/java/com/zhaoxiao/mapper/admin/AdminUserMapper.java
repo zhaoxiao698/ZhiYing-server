@@ -12,7 +12,7 @@ public interface AdminUserMapper {
     @Select("select account from user where account=#{account} and password=#{password}")
     String selectAccountPassword(String account, String password);
 
-    @Select("select admin from user where account=#{account}")
+    @Select("select permissions from user where account=#{account}")
     Integer selectPermissions(String account);
 
     @Select("select account,password,phone,name,avatar,age,sex,permissions,addTime,status from user where permissions=#{permissions}")

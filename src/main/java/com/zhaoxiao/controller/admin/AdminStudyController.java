@@ -35,9 +35,6 @@ public class AdminStudyController {
     private AdminStudyService adminStudyService;
 
     @ApiOperation(value = "获取类型列表",notes = "这是一级分类列表，内部包含二级分类列表",position = 1)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id",value = "反馈id",required = true),
-    })
     @GetMapping("/getFtypeList")
     public List<Ftype> getFtypeList(){
         return adminStudyService.getTypeList();
@@ -81,7 +78,7 @@ public class AdminStudyController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNo",value = "第几页",defaultValue = "1"),
             @ApiImplicitParam(name = "pageSize",value = "每页数量",defaultValue = "8"),
-            @ApiImplicitParam(name = "id",value = "频道id",required = true),
+            @ApiImplicitParam(name = "channelId",value = "频道id",required = true),
     })
     @GetMapping("/getArticleList")
     public PageInfo<ArticleM> getArticleList(@RequestParam(defaultValue = "1") int pageNo,
@@ -175,7 +172,7 @@ public class AdminStudyController {
             @ApiImplicitParam(name = "stypeId",value = "所属二级分类id",required = true),
             @ApiImplicitParam(name = "name",value = "名称",required = true),
             @ApiImplicitParam(name = "info",value = "描述",required = true),
-            @ApiImplicitParam(name = "imgFile",value = "图片文件--只能传入图片文件",required = true),
+            @ApiImplicitParam(name = "(imgFile)",value = "图片文件--只能传入图片文件",required = true),
     })
     @PostMapping("/addChannel")
     public boolean addChannel(int stypeId, String name, String info, MultipartFile imgFile){
@@ -207,7 +204,7 @@ public class AdminStudyController {
             @ApiImplicitParam(name = "stypeId",value = "所属二级分类id",required = true),
             @ApiImplicitParam(name = "name",value = "名称",required = true),
             @ApiImplicitParam(name = "info",value = "描述",required = true),
-            @ApiImplicitParam(name = "imgFile",value = "图片文件--只能传入图片文件",required = true),
+            @ApiImplicitParam(name = "(imgFile)",value = "图片文件--只能传入图片文件",required = true),
     })
     @PostMapping("/setChannel")
     public boolean setChannel(int id, String name, String info, MultipartFile imgFile){
@@ -251,8 +248,8 @@ public class AdminStudyController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "channelId",value = "所属频道id",required = true),
             @ApiImplicitParam(name = "title",value = "标题",required = true),
-            @ApiImplicitParam(name = "imgFile",value = "封面图片文件--只能传入图片文件",required = true),
-            @ApiImplicitParam(name = "mediaFile",value = "音频或者视频文件--只能传入音频或者视频文件",required = true),
+            @ApiImplicitParam(name = "(imgFile)",value = "封面图片文件--只能传入图片文件",required = true),
+            @ApiImplicitParam(name = "(mediaFile)",value = "音频或者视频文件--只能传入音频或者视频文件",required = true),
     })
     @PostMapping("/addArticle")
     public boolean addArticle(int channelId, String title, MultipartFile imgFile, MultipartFile mediaFile){
@@ -325,8 +322,8 @@ public class AdminStudyController {
             @ApiImplicitParam(name = "id",value = "文章id",required = true),
             @ApiImplicitParam(name = "channelId",value = "所属频道id",required = true),
             @ApiImplicitParam(name = "title",value = "标题",required = true),
-            @ApiImplicitParam(name = "imgFile",value = "封面图片文件--只能传入图片文件",required = true),
-            @ApiImplicitParam(name = "mediaFile",value = "音频或者视频文件--只能传入音频或者视频文件",required = true),
+            @ApiImplicitParam(name = "(imgFile)",value = "封面图片文件--只能传入图片文件",type = "file",required = true),
+            @ApiImplicitParam(name = "(mediaFile)",value = "音频或者视频文件--只能传入音频或者视频文件",dataType = "file",required = true),
     })
     @PostMapping("/setArticle")
     public boolean setArticle(int id, String title, MultipartFile imgFile, MultipartFile mediaFile){

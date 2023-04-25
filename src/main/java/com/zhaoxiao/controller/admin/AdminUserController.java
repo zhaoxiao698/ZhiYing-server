@@ -140,7 +140,7 @@ public class AdminUserController {
             @ApiImplicitParam(name = "account",value = "账号",required = true),
             @ApiImplicitParam(name = "phone",value = "手机号",required = true),
             @ApiImplicitParam(name = "name",value = "名字",required = true),
-            @ApiImplicitParam(name = "avatarImg",value = "头像文件--只能上传图片文件",required = true),
+            @ApiImplicitParam(name = "(avatarFile)",value = "头像文件--只能上传图片文件",required = true),
             @ApiImplicitParam(name = "age",value = "年龄",required = true),
             @ApiImplicitParam(name = "sex",value = "性别",required = true),
     })
@@ -148,10 +148,10 @@ public class AdminUserController {
     public boolean setUser(String account,
                            String phone,
                            String name,
-                           MultipartFile avatarImg,
+                           MultipartFile avatarFile,
                            int age,
                            String sex){
-        if (avatarImg==null||avatarImg.isEmpty()) {
+        if (avatarFile==null||avatarFile.isEmpty()) {
             // 如果上传的文件为空，则返回错误信息或者抛出异常
             // ...
             return adminUserService.setUserWithNoImg(account, phone, name, age, sex);
@@ -159,7 +159,7 @@ public class AdminUserController {
         boolean isImage = false;
         try {
             // 尝试读取上传的文件为图片
-            BufferedImage image = ImageIO.read(avatarImg.getInputStream());
+            BufferedImage image = ImageIO.read(avatarFile.getInputStream());
             if (image != null) {
                 // 如果能够成功读取到图片，则说明上传的文件为图片
                 isImage = true;
@@ -170,7 +170,7 @@ public class AdminUserController {
         }
         // 根据isImage的值返回相应的结果
         if (isImage) {
-            return adminUserService.setUser(account, phone, name, avatarImg, age, sex);
+            return adminUserService.setUser(account, phone, name, avatarFile, age, sex);
         } else {
             // 如果上传的不是图片，则返回错误信息或者抛出异常
             // ...
