@@ -238,4 +238,7 @@ public interface AdminTestMapperNew {
 
     @Delete("delete from `newQuestion` where newId=#{id}")
     void removeNewSub(int id);
+
+    @Select("select * from questionBank")
+    List<QuestionBank> getQuestionBankList();
 }

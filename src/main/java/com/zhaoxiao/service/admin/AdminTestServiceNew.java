@@ -700,4 +700,8 @@ public class AdminTestServiceNew {
         }
         return false;
     }
+
+    public List<QuestionBank> getQuestionBankList() {
+        return adminTestMapperNew.getQuestionBankList();
+    }
 }

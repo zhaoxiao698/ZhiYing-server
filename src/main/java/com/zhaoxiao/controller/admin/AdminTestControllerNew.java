@@ -164,4 +164,10 @@ public class AdminTestControllerNew {
     public boolean removeSubQuestion(int id,int type){
         return adminTestServiceNew.removeSubQuestion(id,type);
     }
+
+    @ApiOperation("获取题库列表")
+    @GetMapping("/getQuestionBankList")
+    public List<QuestionBank> getQuestionBankList(){
+        return adminTestServiceNew.getQuestionBankList();
+    }
 }
