@@ -15,7 +15,11 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
 
 @Api(tags = "4-用户管理")
@@ -120,5 +124,63 @@ public class AdminUserController {
     @GetMapping("/sendMessage")
     public boolean sendMessage(String receiveAccount, String info){
         return adminUserService.sendMessage(receiveAccount,info);
+    }
+
+    @ApiOperation(value = "查询用户信息", notes = "用于查看修改登录的用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "account",value = "账号",required = true),
+    })
+    @GetMapping("/getUser")
+    public User getUser(String account){
+        return adminUserService.getUser(account);
+    }
+
+    @ApiOperation(value = "修改用户信息", notes = "只用于修改登陆的用户，不可修改其他用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "account",value = "账号",required = true),
+            @ApiImplicitParam(name = "phone",value = "手机号",required = true),
+            @ApiImplicitParam(name = "name",value = "名字",required = true),
+            @ApiImplicitParam(name = "avatarImg",value = "头像文件--只能上传图片文件",required = true),
+            @ApiImplicitParam(name = "age",value = "年龄",required = true),
+            @ApiImplicitParam(name = "sex",value = "性别",required = true),
+    })
+    @PostMapping("/setUser")
+    public boolean setUser(String account,
+                           String phone,
+                           String name,
+                           MultipartFile avatarImg,
+                           int age,
+                           String sex){
+        if (avatarImg==null||avatarImg.isEmpty()) {
+            // 如果上传的文件为空，则返回错误信息或者抛出异常
+            // ...
+            return adminUserService.setUserWithNoImg(account, phone, name, age, sex);
+        }
+        boolean isImage = false;
+        try {
+            // 尝试读取上传的文件为图片
+            BufferedImage image = ImageIO.read(avatarImg.getInputStream());
+            if (image != null) {
+                // 如果能够成功读取到图片，则说明上传的文件为图片
+                isImage = true;
+                // 进行相应的处理，例如将图片保存到磁盘上
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 根据isImage的值返回相应的结果
+        if (isImage) {
+            return adminUserService.setUser(account, phone, name, avatarImg, age, sex);
+        } else {
+            // 如果上传的不是图片，则返回错误信息或者抛出异常
+            // ...
+            return false;
+        }
+    }
+
+    @ApiOperation(value = "修改密码", notes = "只用于修改登录的用户的密码")
+    @PostMapping("/setPassword")
+    public boolean setPassword(@RequestBody AdminAccount adminAccount){
+        return adminUserService.setPassword(adminAccount);
     }
 }

@@ -4,6 +4,7 @@ import com.zhaoxiao.entity.community.Topic;
 import com.zhaoxiao.entity.mine.User;
 import com.zhaoxiao.model.community.CommentM;
 import com.zhaoxiao.model.community.TrendM;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -35,4 +36,9 @@ public interface AdminCommunityMapper {
     @Select("select * from topic where id=#{topicId}")
     Topic getTopic(int topicId);
 
+    @Delete("delete from trend where id=#{id}")
+    boolean removeTrend(int id);
+
+    @Delete("delete from topic where id=#{id}")
+    boolean removeTopic(int id);
 }

@@ -80,4 +80,22 @@ public class AdminCommunityController {
     public Topic getTopic(int id){
         return adminCommunityService.getTopic(id);
     }
+
+    @ApiOperation("删除动态")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id",value = "动态id",required = true),
+    })
+    @GetMapping("/removeTrend")
+    public boolean removeTrend(int id){
+        return adminCommunityService.removeTrend(id);
+    }
+
+    @ApiOperation("删除话题")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id",value = "话题id",required = true),
+    })
+    @GetMapping("/removeTopic")
+    public boolean removeTopic(int id){
+        return adminCommunityService.removeTopic(id);
+    }
 }

@@ -68,4 +68,11 @@ public class AdminCommunityService {
         return adminCommunityMapper.getTopic(topicId);
     }
 
+    public boolean removeTrend(int id) {
+        return adminCommunityMapper.removeTrend(id);
+    }
+
+    public boolean removeTopic(int id) {
+        return adminCommunityMapper.removeTopic(id);
+    }
 }
