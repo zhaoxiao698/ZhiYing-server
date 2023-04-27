@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -139,5 +140,37 @@ public class CommunityService {
 
     public List<Topic> getTopicCollectionList(String account) {
         return communityMapper.getTopicCollectionList(account);
+    }
+
+    public List<TrendM> getTrendHistoryList(String account) {
+        List<TrendM> trendList = communityMapper.getTrendHistoryList(account);
+
+        for (TrendM trend : trendList) {
+            trend.setTopicList(communityMapper.getTopicListOfTrend(trend.getId()));
+        }
+
+        for (TrendM trend : trendList) {
+            trend.setUserList(communityMapper.getUserListOfTrend(trend.getId()));
+        }
+
+        for (TrendM trend : trendList) {
+            getImageViewInfoList(trend);
+        }
+
+        for (TrendM trend : trendList) {
+            trend.setHotComment(communityMapper.getHotComment(trend.getId()));
+        }
+
+        return trendList;
+    }
+
+    public boolean addTrendRecord(String account, int trendId) {
+        if (communityMapper.getTrendRecord(account, trendId)==null){
+            communityMapper.addTrendRecord(account,trendId);
+            return true;
+        } else {
+            communityMapper.setTrendRecord(account,trendId,new Date());
+            return true;
+        }
     }
 }

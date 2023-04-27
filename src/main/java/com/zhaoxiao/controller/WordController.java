@@ -112,4 +112,12 @@ public class WordController {
     public boolean collect(String account,String wordId,String bookId,boolean collect){
         return wordService.collect(account,wordId,bookId,collect);
     }
+
+    @GetMapping("/getHistoryList")
+    public PageInfo<WordSimple> getHistoryList(@RequestParam(defaultValue = "1") int pageNo,
+                                                  @RequestParam(defaultValue = "8") int pageSize,
+                                                  String account,String bookId){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(wordService.getHistoryList(account,bookId));
+    }
 }

@@ -5,8 +5,10 @@ import com.zhaoxiao.entity.word.LearnedNum;
 import com.zhaoxiao.entity.word.Proficiency;
 import com.zhaoxiao.entity.word.WordRecord;
 import com.zhaoxiao.model.word.BookMore;
+import com.zhaoxiao.model.word.WordSimple;
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -59,4 +61,12 @@ public interface WordMapper {
 
     @Delete("delete from wordCollection where userAccount=#{account} and wordId=#{wordId}")
     boolean removeCollect(String account, String wordId);
+
+//    @Select("select wordId from wordRecord where userAccount=#{account} and bookId=#{bookId} order by addTime desc")
+//    List<String> getHistoryList(String account,String bookId);
+    @Select("select wordId,addTime historyTime from wordRecord where userAccount=#{account} and bookId=#{bookId} order by addTime desc")
+    List<WordSimple> getHistoryList(String account, String bookId);
+
+    @Select("select addTime from wordRecord where userAccount=#{account} and wordId=#{wordId}")
+    Date getHistoryTime(String account, String wordId);
 }

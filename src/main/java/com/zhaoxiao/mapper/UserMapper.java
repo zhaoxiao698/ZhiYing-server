@@ -1,5 +1,6 @@
 package com.zhaoxiao.mapper;
 
+import com.zhaoxiao.entity.mine.Plan;
 import com.zhaoxiao.entity.mine.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -38,4 +39,28 @@ public interface UserMapper {
 
     @Update("update user set password=#{password} where account=#{account}")
     boolean setPassword(String account, String password);
+
+    @Select("select * from plan where userAccount = #{account} and DATE(addTime) = DATE(NOW())")
+    Plan getPlan(String account);
+
+    @Select("select plan from currentPlan where userAccount = #{account}")
+    Long getCurrentPlan(String account);
+
+    @Insert("insert into currentPlan(userAccount,plan) values(#{account},#{plan})")
+    void addCurrentPlan(String account, long plan);
+
+    @Update("update currentPlan set plan=#{plan} where userAccount=#{account}")
+    void setCurrentPlan(String account, long plan);
+
+    @Insert("insert into plan(userAccount,plan) values(#{account},#{plan})")
+    void addPlan(String account, long plan);
+
+    @Update("update plan set plan=#{plan} where userAccount=#{account} and DATE(addTime) = DATE(NOW())")
+    void setPlan(String account, long plan);
+
+    @Insert("insert into plan(userAccount,plan,planDo) values(#{account},#{currentPlan},#{planDo})")
+    void addPlanDo(String account, Long currentPlan, long planDo);
+
+    @Update("update plan set planDo=planDo+#{planDo} where userAccount=#{account} and DATE(addTime) = DATE(NOW())")
+    void setPlanDo(String account, long planDo);
 }

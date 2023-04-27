@@ -41,6 +41,8 @@ public class TrendM {
     private int share;
     @ApiModelProperty("（不用管）")
     private CommentM hotComment;
+    @ApiModelProperty("（不用管）")
+    private Date historyTime;
 
     public TrendM() {
     }
@@ -181,5 +183,13 @@ public class TrendM {
 
     public void setHotComment(CommentM hotComment) {
         this.hotComment = hotComment;
+    }
+
+    public Date getHistoryTime() {
+        return historyTime;
+    }
+
+    public void setHistoryTime(Date historyTime) {
+        this.historyTime = historyTime;
     }
 }

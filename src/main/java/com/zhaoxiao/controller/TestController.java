@@ -6,10 +6,7 @@ import com.zhaoxiao.model.test.*;
 import com.zhaoxiao.response.BaseResponse;
 import com.zhaoxiao.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -106,5 +103,31 @@ public class TestController {
     @GetMapping("/getQuestionById")
     public QuestionM getQuestionById(int questionId, int table){
         return testService.getQuestionById(questionId,table);
+    }
+
+    @GetMapping("/getTestHistoryList")
+    public PageInfo<? extends QuestionM> getTestHistoryList(@RequestParam(defaultValue = "1") int pageNo,
+                                                               @RequestParam(defaultValue = "8") int pageSize,
+                                                               String account, int table){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(testService.getTestHistoryList(account,table));
+    }
+
+    @GetMapping("/addTestRecord")
+    public boolean addTestRecord(String account,int questionId,int table){
+        return testService.addTestRecord(account, questionId,table);
+    }
+
+    @PostMapping("/saveAnswer")
+    public boolean saveAnswer(@RequestBody QuestionAnswer questionAnswer){
+        return testService.saveAnswer(questionAnswer);
+    }
+
+    @GetMapping("/getTestWrongList")
+    public PageInfo<? extends QuestionM> getTestWrongList(@RequestParam(defaultValue = "1") int pageNo,
+                                                            @RequestParam(defaultValue = "8") int pageSize,
+                                                            String account, int table){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(testService.getTestWrongList(account,table));
     }
 }

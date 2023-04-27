@@ -94,4 +94,11 @@ public interface StudyMapper {
     @Select("select c.id,c.name,c.info,c.img,c.num,c.collection,c.lastTime from channel c join " +
             "channelCollection cc on c.id=cc.channelId where cc.userAccount=#{account} order by cc.addTime desc")
     List<ChannelM> getChannelCollectionList(String account);
+
+    @Select("select a.id,title,a.img,duration,count,a.collection,a.addTime,ac.addTime historyTime from article a join channel c on a.channelId=c.id " +
+            "join articleRecord ac on a.id=ac.articleId where ac.userAccount=#{account} order by ac.addTime desc")
+    List<ArticleM> getArticleHistoryList(String account);
+
+    @Select("select an.userAccount,an.articleId,an.info,an.addTime,a.title articleTitle,a.img articleImg,c.name channelName from articleNote an join article a on an.articleId=a.id join channel c on a.channelId=c.id where an.userAccount=#{account}")
+    List<ArticleNoteDetail> getArticleNoteList(String account);
 }

@@ -384,4 +384,37 @@ public class WordService {
             }
         }
     }
+
+    public List<WordSimple> getHistoryList(String account,String bookId) {
+        List<WordSimple> learnedWordIdList = wordMapper.getHistoryList(account,bookId);
+        List<WordSimple> all = getWordSimpleList(bookId);
+        List<WordSimple> pageInfo = new ArrayList<>();
+        for (WordSimple wordSimple : learnedWordIdList) {
+            for (WordSimple simple : all) {
+                if (wordSimple.getWordId().equals(simple.getWordId())){
+//                    Date historyTime = wordSimple.getHistoryTime();
+//                    wordSimple = simple;
+//                    wordSimple.setHistoryTime(historyTime);
+
+//                    wordSimple.setWordHead(wordSimple.getWordHead());
+//                    wordSimple.setBookId(wordSimple.getBookId());
+//                    wordSimple.setPicture(wordSimple.getPicture());
+
+                    simple.setHistoryTime(wordSimple.getHistoryTime());
+                    pageInfo.add(simple);
+                }
+            }
+        }
+//        for (WordSimple wordSimple : all) {
+//            if (learnedWordIdList.contains(wordSimple.getWordId())){
+//                learnedWordIdList.add(wordSimple);
+//            }
+//        }
+        //设置收藏
+        for (WordSimple wordSimple : pageInfo) {
+            wordSimple.setCollect(wordMapper.getCollect(account, wordSimple.getWordId()) != null);
+//            wordSimple.setHistoryTime(wordMapper.getHistoryTime(account, wordSimple.getWordId()));
+        }
+        return pageInfo;
+    }
 }

@@ -21,6 +21,8 @@ public class ArticleM {
     private Integer collection;
     @ApiModelProperty("添加时间")
     private Date addTime;
+    @ApiModelProperty("（不用管）")
+    private Date historyTime;
 
     public ArticleM() {
     }
@@ -89,5 +91,13 @@ public class ArticleM {
 
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
+    }
+
+    public Date getHistoryTime() {
+        return historyTime;
+    }
+
+    public void setHistoryTime(Date historyTime) {
+        this.historyTime = historyTime;
     }
 }

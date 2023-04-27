@@ -162,4 +162,12 @@ public class StudyService {
     public List<ChannelM> getChannelCollectionList(String account) {
         return studyMapper.getChannelCollectionList(account);
     }
+
+    public List<ArticleM> getArticleHistoryList(String account) {
+        return studyMapper.getArticleHistoryList(account);
+    }
+
+    public List<ArticleNoteDetail> getArticleNoteList(String account) {
+        return studyMapper.getArticleNoteList(account);
+    }
 }

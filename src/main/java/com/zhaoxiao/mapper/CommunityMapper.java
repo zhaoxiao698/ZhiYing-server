@@ -4,9 +4,12 @@ import com.zhaoxiao.entity.community.Topic;
 import com.zhaoxiao.entity.mine.User;
 import com.zhaoxiao.model.community.CommentM;
 import com.zhaoxiao.model.community.TrendM;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -50,4 +53,17 @@ public interface CommunityMapper {
 
     @Select("select * from topic t join topicCollection tc on t.id=tc.topicId where tc.userAccount=#{account} order by tc.addTime desc")
     List<Topic> getTopicCollectionList(String account);
+
+    @Select("select id,t.userAccount,name userName,avatar userAvatar,title,info,t.addTime,`like`,collection,comment,share,tc.addTime historyTime from " +
+            "trend t join user u on u.account=t.userAccount join trendRecord tc on t.id=tc.trendId where tc.userAccount=#{account} order by tc.addTime desc")
+    List<TrendM> getTrendHistoryList(String account);
+
+    @Select("select userAccount from trendRecord where userAccount=#{account} and trendId=#{trendId}")
+    String getTrendRecord(String account, int trendId);
+
+    @Insert("insert into trendRecord(userAccount,trendId) values(#{account},#{trendId})")
+    void addTrendRecord(String account, int trendId);
+
+    @Update("update trendRecord set addTime=#{addTime} where userAccount=#{account} and trendId=#{trendId}")
+    void setTrendRecord(String account, int trendId, Date addTime);
 }

@@ -2,6 +2,7 @@ package com.zhaoxiao.model.word;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
 
 public class WordSimple {
@@ -23,6 +24,7 @@ public class WordSimple {
     private int proficiency;//熟练度
     private int nextDayNum;//下次复习天数
     private boolean collect;//是否收藏
+    private Date historyTime;//历史记录时间
 
     public WordSimple() {
     }
@@ -178,6 +180,14 @@ public class WordSimple {
 
     public void setCollect(boolean collect) {
         this.collect = collect;
+    }
+
+    public Date getHistoryTime() {
+        return historyTime;
+    }
+
+    public void setHistoryTime(Date historyTime) {
+        this.historyTime = historyTime;
     }
 
     //例句

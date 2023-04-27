@@ -73,4 +73,17 @@ public class CommunityController {
         PageHelper.startPage(pageNo,pageSize);
         return new PageInfo<>(communityService.getTopicCollectionList(account));
     }
+
+    @GetMapping("/getTrendHistoryList")
+    public PageInfo<TrendM> getTrendHistoryList(@RequestParam(defaultValue = "1") int pageNo,
+                                                   @RequestParam(defaultValue = "8") int pageSize,
+                                                   String account){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(communityService.getTrendHistoryList(account));
+    }
+
+    @GetMapping("/addTrendRecord")
+    public boolean addTrendRecord(String account,int trendId){
+        return communityService.addTrendRecord(account, trendId);
+    }
 }

@@ -1,5 +1,7 @@
 package com.zhaoxiao.model.test;
 
+import java.util.Date;
+
 public class QuestionM {
     private int id;
     private String info;
@@ -7,6 +9,7 @@ public class QuestionM {
     private int order;
     private String subType;
     private int questionBankId;
+    private Date historyTime;
 
     public QuestionM() {
     }
@@ -63,5 +66,13 @@ public class QuestionM {
 
     public void setQuestionBankId(int questionBankId) {
         this.questionBankId = questionBankId;
+    }
+
+    public Date getHistoryTime() {
+        return historyTime;
+    }
+
+    public void setHistoryTime(Date historyTime) {
+        this.historyTime = historyTime;
     }
 }

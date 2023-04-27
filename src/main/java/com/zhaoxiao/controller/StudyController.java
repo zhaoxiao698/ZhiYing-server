@@ -119,4 +119,20 @@ public class StudyController {
         PageHelper.startPage(pageNo,pageSize);
         return new PageInfo<>(studyService.getChannelCollectionList(account));
     }
+
+    @GetMapping("/getArticleHistoryList")
+    public PageInfo<ArticleM> getArticleHistoryList(@RequestParam(defaultValue = "1") int pageNo,
+                                                       @RequestParam(defaultValue = "8") int pageSize,
+                                                       String account){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(studyService.getArticleHistoryList(account));
+    }
+
+    @GetMapping("/getArticleNoteList")
+    public PageInfo<ArticleNoteDetail> getArticleNoteList(@RequestParam(defaultValue = "1") int pageNo,
+                                                       @RequestParam(defaultValue = "8") int pageSize,
+                                                       String account){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(studyService.getArticleNoteList(account));
+    }
 }

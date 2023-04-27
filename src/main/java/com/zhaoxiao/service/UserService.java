@@ -1,5 +1,6 @@
 package com.zhaoxiao.service;
 
+import com.zhaoxiao.entity.mine.Plan;
 import com.zhaoxiao.entity.mine.User;
 import com.zhaoxiao.mapper.UserMapper;
 import com.zhaoxiao.model.mine.Login;
@@ -92,5 +93,53 @@ public class UserService {
 
     public boolean setPassword(String account, String password) {
         return userMapper.setPassword(account,password);
+    }
+
+    public Plan getPlan(String account) {
+        Plan plan = userMapper.getPlan(account);
+        if (plan==null){
+            plan = new Plan();
+            plan.setUserAccount(account);
+            Long planI = getCurrentPlan(account);
+            if (planI==null){
+                planI = 0L;
+            }
+            plan.setPlan(planI);
+            plan.setPlanDo(0);
+        }
+        return plan;
+    }
+
+    public Long getCurrentPlan(String account) {
+        return userMapper.getCurrentPlan(account);
+    }
+
+    public boolean setPlan(String account, long plan) {
+        if (userMapper.getCurrentPlan(account)==null){
+            userMapper.addCurrentPlan(account,plan);
+        } else {
+            userMapper.setCurrentPlan(account,plan);
+        }
+        if (userMapper.getPlan(account)==null){
+            userMapper.addPlan(account,plan);
+        } else {
+            userMapper.setPlan(account,plan);
+        }
+        return true;
+    }
+
+    public boolean addPlanDo(String account, long planDo) {
+        if (userMapper.getPlan(account)==null){
+            //查当前计划
+            Long currentPlan = userMapper.getCurrentPlan(account);
+            if (currentPlan == null){
+                currentPlan = 0L;
+                userMapper.addCurrentPlan(account,currentPlan);
+            }
+            userMapper.addPlanDo(account,currentPlan,planDo);
+        } else {
+            userMapper.setPlanDo(account,planDo);
+        }
+        return true;
     }
 }
