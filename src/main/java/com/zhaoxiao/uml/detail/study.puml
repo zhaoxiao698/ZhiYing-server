@@ -1,0 +1,28 @@
+@startuml
+start
+:选择阅读或听力模式;
+if (阅读模式) then (yes)
+  :选择英文文章;
+else (no)
+  :选择音频或视频;
+  :选择播放倍速;
+endif
+:选择是否从头开始听/读;
+while (还有句子) is (yes)
+  :显示文章内容;
+  :播放音频/视频;
+  :高亮显示当前句子;
+  :等待用户控制;
+endwhile (no)
+:学习结束;
+if (收藏文章?) then (yes)
+  :添加文章到收藏夹;
+endif
+if (分享文章?) then (yes)
+  :调用分享功能;
+endif
+if (记笔记?) then (yes)
+  :添加笔记;
+endif
+stop
+@enduml

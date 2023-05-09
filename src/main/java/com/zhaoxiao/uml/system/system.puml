@@ -1,0 +1,37 @@
+@startuml
+title System Architecture
+
+package "Mobile App" {
+  [Login Screen]
+  [Dashboard]
+  [Lesson Screen]
+  [Quiz Screen]
+  [Profile Screen]
+}
+
+database "User Data" {
+  folder "Local Storage" {
+    [User Info]
+    [Progress Data]
+  }
+  frame "Server" {
+    [User Database]
+  }
+}
+
+cloud {
+  [Content Database]
+}
+
+[Login Screen] --> [Dashboard]
+[Dashboard] --> [Lesson Screen]
+[Lesson Screen] --> [Quiz Screen]
+[Dashboard] --> [Profile Screen]
+
+[User Info] --> [User Database]
+[Progress Data] --> [User Database]
+
+[Lesson Screen] --> [Content Database]
+[Quiz Screen] --> [Content Database]
+
+@enduml

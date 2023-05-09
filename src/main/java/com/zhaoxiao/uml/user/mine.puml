@@ -1,0 +1,39 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor User
+rectangle 知识学习模块 {
+  User --> (登录注册)
+  (登录注册) ..> (验证码登录) : <<include>>
+  note top of (验证码登录) : 未注册的未注册的手机号验证后会直接注册.
+  (登录注册) ..> (密码登录) : <<include>>
+  User --> (个人信息管理)
+  (个人信息管理) ..> (查看个人信息) : <<include>>
+  (个人信息管理) ..> (修改个人信息) : <<include>>
+  (个人信息管理) ..> (修改密码) : <<include>>
+  User --> (学习计划)
+  User --> (日历打卡)
+  User --> (收藏夹)
+  (收藏夹) ..> (频道收藏夹) : <<include>>
+  (收藏夹) ..> (文章收藏夹) : <<include>>
+  (收藏夹) ..> (题目收藏夹) : <<include>>
+  (收藏夹) ..> (单词收藏夹) : <<include>>
+  (收藏夹) ..> (动态收藏夹) : <<include>>
+  (收藏夹) ..> (话题收藏夹) : <<include>>
+  User --> (历史记录)
+  (历史记录) ..> (文章历史记录) : <<include>>
+  (历史记录) ..> (题目历史记录) : <<include>>
+  (历史记录) ..> (单词历史记录) : <<include>>
+  (历史记录) ..> (动态历史记录) : <<include>>
+  User --> (笔记)
+  (笔记) ..> (文章笔记) : <<include>>
+  (笔记) ..> (题目笔记) : <<include>>
+  User --> (错题本)
+  User --> (社区信息管理)
+  (社区信息管理) ..> (我的动态) : <<include>>
+  (社区信息管理) ..> (我的关注) : <<include>>
+  (社区信息管理) ..> (我的粉丝) : <<include>>
+  User --> (修改主题)
+  User --> (帮助与反馈)
+}
+@enduml

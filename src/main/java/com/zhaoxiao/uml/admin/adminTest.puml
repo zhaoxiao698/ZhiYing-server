@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor User
+rectangle 题库管理模块 {
+  User --> (题库管理)
+  (题库管理) ..> (查看题库) : <<include>>
+  (题库管理) ..> (添加题库) : <<include>>
+  (题库管理) ..> (修改题库) : <<include>>
+  (题库管理) ..> (删除题库) : <<include>>
+  User --> (分类管理)
+  (分类管理) ..> (查看分类) : <<include>>
+  (分类管理) ..> (添加分类) : <<include>>
+  (分类管理) ..> (修改分类) : <<include>>
+  (分类管理) ..> (删除分类) : <<include>>
+  User --> (题目管理)
+  (题目管理) ..> (查看题目) : <<include>>
+  (题目管理) ..> (添加题目) : <<include>>
+  (题目管理) ..> (修改题目) : <<include>>
+  (题目管理) ..> (删除题目) : <<include>>
+  (题目管理) ..> (子题目管理) : <<include>>
+  (子题目管理) ..> (查看子题目) : <<include>>
+  (子题目管理) ..> (添加子题目) : <<include>>
+  (子题目管理) ..> (修改子题目) : <<include>>
+  (子题目管理) ..> (删除子题目) : <<include>>
+}
+@enduml

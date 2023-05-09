@@ -1,0 +1,15 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor User
+rectangle 社区管理模块 {
+  User --> (动态管理)
+  (动态管理) ..> (查看动态) : <<include>>
+  (动态管理) ..> (审核动态) : <<include>>
+  (动态管理) ..> (删除动态) : <<include>>
+  User --> (话题管理)
+  (话题管理) ..> (查看话题) : <<include>>
+  (话题管理) ..> (审核话题) : <<include>>
+  (话题管理) ..> (删除话题) : <<include>>
+}
+@enduml

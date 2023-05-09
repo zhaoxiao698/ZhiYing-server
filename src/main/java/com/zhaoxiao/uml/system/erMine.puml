@@ -1,0 +1,12 @@
+@startuml
+
+entity 用户
+entity 计划
+entity 反馈
+entity 消息
+
+用户 -- 计划 : 设置
+用户 -- 反馈 : 发送
+用户 -- 消息 : 接收
+
+@enduml

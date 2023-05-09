@@ -369,7 +369,7 @@ public class AdminTestServiceNew {
                                String word,
                                MultipartFile audioFile,
                                int type,
-                               int num,
+//                               int num,
                                String A,
                                String B,
                                String C,
@@ -425,7 +425,7 @@ public class AdminTestServiceNew {
         questionNew.setWord(word);
         questionNew.setAudio(audio);
         questionNew.setType(type);
-        questionNew.setNum(num);
+//        questionNew.setNum(num);
         questionNew.setA(A);
         questionNew.setB(B);
         questionNew.setC(C);
@@ -489,7 +489,7 @@ public class AdminTestServiceNew {
         return img;
     }
 
-    public boolean setQuestion(int id, String info, int questionBankId, String word, MultipartFile audioFile, int type, int num, String A, String B, String C, String D, String E, String F, String G, String answer, MultipartFile imgFile) {
+    public boolean setQuestion(int id, String info, int questionBankId, String word, MultipartFile audioFile, int type, /*int num,*/ String A, String B, String C, String D, String E, String F, String G, String answer, MultipartFile imgFile) {
         String audio = "";
         String img = "";
 
@@ -541,7 +541,7 @@ public class AdminTestServiceNew {
         questionNew.setWord(word);
         questionNew.setAudio(audio);
         questionNew.setType(type);
-        questionNew.setNum(num);
+//        questionNew.setNum(num);
         questionNew.setA(A);
         questionNew.setB(B);
         questionNew.setC(C);

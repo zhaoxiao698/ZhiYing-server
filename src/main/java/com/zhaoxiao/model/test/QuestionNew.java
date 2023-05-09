@@ -30,7 +30,7 @@ public class QuestionNew {
 
     @ApiModelProperty("音频（听力题才有）")
     private String audio;
-    @ApiModelProperty("所属类型id（这里是指一级分类）")
+    @ApiModelProperty("所属类型id（这里是指二级分类）")
     private int type;
 
     @ApiModelProperty("段落数量（匹配题才有）")

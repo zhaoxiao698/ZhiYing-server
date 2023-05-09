@@ -1,0 +1,30 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor User
+rectangle 做题测试模块 {
+  User --> (动态)
+  (动态) ..> (查看动态) : <<include>>
+  (查看动态) ..> (点赞) : <<include>>
+  (查看动态) ..> (评论) : <<include>>
+  (查看动态) ..> (收藏) : <<include>>
+  (查看动态) ..> (分享) : <<include>>
+  (查看动态) ..> (关注) : <<include>>
+'  (查看动态) ..> (举报) : <<include>>
+  (动态) ..> (发布动态) : <<include>>
+  (发布动态) ..> (添加标题) : <<include>>
+  (发布动态) ..> (添加内容) : <<include>>
+  (发布动态) ..> (添加图片) : <<include>>
+  (发布动态) ..> (添加话题) : <<include>>
+  (发布动态) ..> (分享笔记) : <<include>>
+  (发布动态) ..> (分享文章) : <<include>>
+  (发布动态) ..> (分享题目) : <<include>>
+  (动态) ..> (搜索动态) : <<include>>
+  User --> (话题)
+  (话题) ..> (查看话题信息)
+  (话题) ..> (查看话题内的动态)
+  (话题) ..> (收藏话题)
+  (话题) ..> (创建话题)
+  (话题) ..> (搜索话题)
+}
+@enduml

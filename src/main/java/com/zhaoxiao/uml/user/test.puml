@@ -1,0 +1,20 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor User
+rectangle 做题测试模块 {
+  User --> (题库选择)
+  User --> (搜索)
+  User --> (做题)
+  (做题) ..> (专项训练) : <<include>>
+  (做题) ..> (历年真题) : <<include>>
+  (做题) ..> (模拟考试) : <<include>>
+  User --> (搜索试题)
+  User --> (记录错题)
+  User --> (收藏题目)
+  User --> (添加笔记)
+  User --> (分享题目)
+  User --> (刷题设置)
+  User --> (练习历史)
+}
+@enduml
