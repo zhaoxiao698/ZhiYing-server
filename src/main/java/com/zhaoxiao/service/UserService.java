@@ -4,10 +4,16 @@ import com.zhaoxiao.entity.mine.Plan;
 import com.zhaoxiao.entity.mine.User;
 import com.zhaoxiao.mapper.UserMapper;
 import com.zhaoxiao.model.mine.Login;
+import com.zhaoxiao.model.mine.CalendarInfo;
 import com.zhaoxiao.util.AccountUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -141,5 +147,113 @@ public class UserService {
             userMapper.setPlanDo(account,planDo);
         }
         return true;
+    }
+
+    public List<Plan> getPlanList(String account) {
+        return userMapper.getPlanList(account);
+    }
+
+    public CalendarInfo getCalendarInfo(String account) {
+        CalendarInfo calendarInfo = new CalendarInfo();
+        List<Plan> planList = getPlanList(account);
+        calendarInfo.setPlanList(planList);
+        calendarInfo.setContinuous(getContinuousDays(planList));
+        calendarInfo.setTotal(userMapper.getTotalDays(account));
+        return calendarInfo;
+    }
+
+    private int getContinuousDays1(List<Plan> planList){
+        // 获取计划完成日期的列表
+        List<Date> completedDates = new ArrayList<>();
+        for (Plan plan : planList) {
+            if (plan.getPlanDo() >= plan.getPlan()) {
+                completedDates.add(plan.getAddTime());
+            }
+        }
+
+        // 根据完成日期列表计算连续天数
+        int continuousDays = 0;
+        if (!completedDates.isEmpty()) {
+            // 将完成日期列表按照时间戳从小到大排序
+            Collections.sort(completedDates);
+            // 判断最后一次完成的日期是否是今天或昨天
+            Date lastCompletedDate = completedDates.get(completedDates.size() - 1);
+            Date today = new Date();
+            Date yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+            if (lastCompletedDate.compareTo(today) >= 0) {
+                // 最后一次完成的日期是今天或之后，从今天开始往前数连续天数
+                continuousDays = 1;
+                for (int i = completedDates.size() - 2; i >= 0; i--) {
+                    System.out.println("1:"+completedDates.get(i));
+                    System.out.println("2:"+new Date(today.getTime() - continuousDays * 24 * 60 * 60 * 1000));
+                    if (completedDates.get(i).compareTo(new Date(today.getTime() - continuousDays * 24 * 60 * 60 * 1000)) == 0) {
+                        continuousDays++;
+                    } else {
+                        break;
+                    }
+                }
+            } else if (lastCompletedDate.compareTo(yesterday) >= 0) {
+                // 最后一次完成的日期是昨天，从昨天开始往前数连续天数
+                continuousDays = 1;
+                for (int i = completedDates.size() - 2; i >= 0; i--) {
+                    System.out.println("1:"+completedDates.get(i));
+                    System.out.println("2:"+new Date(yesterday.getTime() - continuousDays * 24 * 60 * 60 * 1000));
+                    if (completedDates.get(i).compareTo(new Date(yesterday.getTime() - continuousDays * 24 * 60 * 60 * 1000)) == 0) {
+                        continuousDays++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+
+        System.out.println("连续完成计划的天数为：" + continuousDays);
+        return continuousDays;
+    }
+
+    private int getContinuousDays(List<Plan> planList){
+        // 获取计划完成日期的列表
+        List<LocalDate> completedDates = new ArrayList<>();
+        for (Plan plan : planList) {
+            if (plan.getPlanDo() >= plan.getPlan()) {
+                LocalDate completedDate = plan.getAddTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                completedDates.add(completedDate);
+            }
+        }
+
+        // 根据完成日期列表计算连续天数
+        int continuousDays = 0;
+        if (!completedDates.isEmpty()) {
+            // 将完成日期列表按照日期从小到大排序
+            Collections.sort(completedDates);
+            // 判断最后一次完成的日期是否是今天或昨天
+            LocalDate lastCompletedDate = completedDates.get(completedDates.size() - 1);
+            LocalDate today = LocalDate.now();
+            LocalDate yesterday = today.minusDays(1);
+            if (lastCompletedDate.compareTo(today) >= 0) {
+                // 最后一次完成的日期是今天或之后，从今天开始往前数连续天数
+                continuousDays = 1;
+                for (int i = completedDates.size() - 2; i >= 0; i--) {
+                    if (completedDates.get(i).equals(today.minusDays(continuousDays))) {
+                        continuousDays++;
+                    } else {
+                        break;
+                    }
+                }
+            } else if (lastCompletedDate.compareTo(yesterday) >= 0) {
+                // 最后一次完成的日期是昨天，从昨天开始往前数连续天数
+                continuousDays = 1;
+                for (int i = completedDates.size() - 2; i >= 0; i--) {
+                    if (completedDates.get(i).equals(yesterday.minusDays(continuousDays))) {
+                        continuousDays++;
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+
+        System.out.println("连续完成计划的天数为：" + continuousDays);
+        return continuousDays;
     }
 }

@@ -63,4 +63,10 @@ public interface UserMapper {
 
     @Update("update plan set planDo=planDo+#{planDo} where userAccount=#{account} and DATE(addTime) = DATE(NOW())")
     void setPlanDo(String account, long planDo);
+
+    @Select("select * from plan where userAccount = #{account}")
+    List<Plan> getPlanList(String account);
+
+    @Select("select count(*) from plan where userAccount = #{account} and planDo>=plan")
+    int getTotalDays(String account);
 }

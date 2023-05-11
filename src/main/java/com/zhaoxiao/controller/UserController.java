@@ -3,14 +3,14 @@ package com.zhaoxiao.controller;
 import com.zhaoxiao.entity.mine.Plan;
 import com.zhaoxiao.entity.mine.User;
 import com.zhaoxiao.model.mine.Login;
+import com.zhaoxiao.model.mine.CalendarInfo;
 import com.zhaoxiao.response.BaseResponse;
 import com.zhaoxiao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @BaseResponse
@@ -77,5 +77,16 @@ public class UserController {
     @GetMapping("/addPlanDo")
     public boolean addPlanDo(String account, long planDo){
         return userService.addPlanDo(account,planDo);
+    }
+
+    @GetMapping("/getPlanList")
+    public List<Plan> getPlanList(String account){
+        Date testDate = new Date();
+        return userService.getPlanList(account);
+    }
+
+    @GetMapping("/getCalendarInfo")
+    public CalendarInfo getCalendarInfo(String account){
+        return userService.getCalendarInfo(account);
     }
 }

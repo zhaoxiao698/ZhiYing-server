@@ -1,11 +1,10 @@
 package com.zhaoxiao.mapper;
 
+import com.zhaoxiao.entity.study.ArticleNote;
 import com.zhaoxiao.entity.test.*;
+import com.zhaoxiao.model.study.ArticleNoteDetail;
 import com.zhaoxiao.model.test.*;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
 import java.util.List;
@@ -200,4 +199,223 @@ public interface TestMapper {
 
     @Select("select l.id,info,A,B,C,D,E,F,G,type,name subType,t.addTime from new l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=8 and userAccount=#{account} and `right`=false order by t.addTime desc")
     List<NewM> getNewWrongList(String account);
+
+
+
+    @Select("select count(*) from listening l join listeningQuestion lq on l.id=lq.listeningId join subTestRecord s on lq.id=s.subQuestionId where type = #{type} and questionBankId=#{questionBankId} and `table`=1 and userAccount=#{account}")
+    int getListeningFinish(String account,int type, int questionBankId);
+
+    @Select("select count(*) from banked l join bankedQuestion lq on l.id=lq.bankedId join subTestRecord s on lq.id=s.subQuestionId where questionBankId=#{questionBankId} and `table`=2 and userAccount=#{account}")
+    int getBankedFinish(String account,int questionBankId);
+
+    @Select("select count(*) from `match` l join matchQuestion lq on l.id=lq.matchId join subTestRecord s on lq.id=s.subQuestionId where questionBankId=#{questionBankId} and `table`=3 and userAccount=#{account}")
+    int getMatchFinish(String account,int questionBankId);
+
+    @Select("select count(*) from careful l join carefulQuestion lq on l.id=lq.carefulId join subTestRecord s on lq.id=s.subQuestionId where questionBankId=#{questionBankId} and `table`=4 and userAccount=#{account}")
+    int getCarefulFinish(String account,int questionBankId);
+
+    @Select("select count(*) from translation l join testRecord s on l.id=s.questionId where questionBankId=#{questionBankId} and `table`=5 and userAccount=#{account}")
+    int getTranslationFinish(String account,int questionBankId);
+
+    @Select("select count(*) from writing l join testRecord s on l.id=s.questionId where type = #{type} and questionBankId=#{questionBankId} and `table`=6 and userAccount=#{account}")
+    int getWritingFinish(String account,int type, int questionBankId);
+
+    @Select("select count(*) from cloze l join clozeQuestion lq on l.id=lq.clozeId join subTestRecord s on lq.id=s.subQuestionId where questionBankId=#{questionBankId} and `table`=7 and userAccount=#{account}")
+    int getClozeFinish(String account,int questionBankId);
+
+    @Select("select count(*) from new l join newQuestion lq on l.id=lq.newId join subTestRecord s on lq.id=s.subQuestionId where type = #{type} and questionBankId=#{questionBankId} and `table`=8 and userAccount=#{account}")
+    int getNewFinish(String account,int type, int questionBankId);
+
+
+    @Select("select count(*) from listening l join listeningQuestion lq on l.id=lq.listeningId join subTestRecord s on lq.id=s.subQuestionId where type = #{type} and questionBankId=#{questionBankId} and `right`=1 and `table`=1 and userAccount=#{account}")
+    int getListeningRight(String account,int type, int questionBankId);
+
+    @Select("select count(*) from banked l join bankedQuestion lq on l.id=lq.bankedId join subTestRecord s on lq.id=s.subQuestionId where questionBankId=#{questionBankId} and `right`=1 and `table`=2 and userAccount=#{account}")
+    int getBankedRight(String account,int questionBankId);
+
+    @Select("select count(*) from `match` l join matchQuestion lq on l.id=lq.matchId join subTestRecord s on lq.id=s.subQuestionId where questionBankId=#{questionBankId} and `right`=1 and `table`=3 and userAccount=#{account}")
+    int getMatchRight(String account,int questionBankId);
+
+    @Select("select count(*) from careful l join carefulQuestion lq on l.id=lq.carefulId join subTestRecord s on lq.id=s.subQuestionId where questionBankId=#{questionBankId} and `right`=1 and `table`=4 and userAccount=#{account}")
+    int getCarefulRight(String account,int questionBankId);
+
+    @Select("select count(*) from translation l join testRecord s on l.id=s.questionId where questionBankId=#{questionBankId} and `right`=1 and `table`=5 and userAccount=#{account}")
+    int getTranslationRight(String account,int questionBankId);
+
+    @Select("select count(*) from writing l join testRecord s on l.id=s.questionId where type = #{type} and questionBankId=#{questionBankId} and `right`=1 and `table`=6 and userAccount=#{account}")
+    int getWritingRight(String account,int type, int questionBankId);
+
+    @Select("select count(*) from cloze l join clozeQuestion lq on l.id=lq.clozeId join subTestRecord s on lq.id=s.subQuestionId where questionBankId=#{questionBankId} and `right`=1 and `table`=7 and userAccount=#{account}")
+    int getClozeRight(String account,int questionBankId);
+
+    @Select("select count(*) from new l join newQuestion lq on l.id=lq.newId join subTestRecord s on lq.id=s.subQuestionId where type = #{type} and questionBankId=#{questionBankId} and `right`=1 and `table`=8 and userAccount=#{account}")
+    int getNewRight(String account,int type, int questionBankId);
+
+
+
+    @Select("select t.id,t.name,q.id questionBankId,q.name questionBankName from truePaper t join questionBank q on t.questionBankId=q.id where questionBankId=#{questionBankId}")
+    List<TruePaper> getTestTruePaperList(int questionBankId);
+
+
+    @Select("select l.id,info,audio,type,name subType from listening l join subType s on l.type=s.id join `true` t on l.id=t.questionId where truePaperId=#{truePaperId} and `table`=1 order by `order`")
+    List<ListeningM> getListeningListTrue(int truePaperId);
+
+    @Select("select l.id,info,word,name subType from banked l join subType s on l.type=s.id join `true` t on l.id=t.questionId where truePaperId=#{truePaperId} and `table`=2 order by `order`")
+    List<BankedM> getBankedListTrue(int truePaperId);
+
+    @Select("select l.id,info,num,name subType from `match` l join subType s on l.type=s.id join `true` t on l.id=t.questionId where truePaperId=#{truePaperId} and `table`=3 order by `order`")
+    List<MatchM> getMatchListTrue(int truePaperId);
+
+    @Select("select l.id,info,name subType from careful l join subType s on l.type=s.id join `true` t on l.id=t.questionId where truePaperId=#{truePaperId} and `table`=4 order by `order`")
+    List<CarefulM> getCarefulListTrue(int truePaperId);
+
+    @Select("select l.id,info,answer,name subType from translation l join subType s on l.type=s.id join `true` t on l.id=t.questionId where truePaperId=#{truePaperId} and `table`=5 order by `order`")
+    List<TranslationM> getTranslationListTrue(int truePaperId);
+
+    @Select("select l.id,info,answer,name subType from writing l join subType s on l.type=s.id join `true` t on l.id=t.questionId where truePaperId=#{truePaperId} and `table`=6 order by `order`")
+    List<WritingM> getWritingListTrue(int truePaperId);
+
+    @Select("select l.id,info,name subType from cloze l join subType s on l.type=s.id join `true` t on l.id=t.questionId where truePaperId=#{truePaperId} and `table`=7 order by `order`")
+    List<ClozeM> getClozeListTrue(int truePaperId);
+
+    @Select("select l.id,info,A,B,C,D,E,F,G,type,name subType from new l join subType s on l.type=s.id join `true` t on l.id=t.questionId where truePaperId=#{truePaperId} and `table`=8 order by `order`")
+    List<NewM> getNewListTrue(int truePaperId);
+
+
+    @Select("select an.userAccount,an.questionId,an.info,an.addTime,a.info questionInfo,c.name subType from testNote an join listening a on an.questionId=a.id join subType c on a.type=c.id where an.userAccount=#{account} and `table`=1")
+    List<TestNoteDetail> getListeningNoteList(String account);
+
+    @Select("select an.userAccount,an.questionId,an.info,an.addTime,a.info questionInfo,c.name subType from testNote an join banked a on an.questionId=a.id join subType c on a.type=c.id where an.userAccount=#{account} and `table`=2")
+    List<TestNoteDetail> getBankedNoteList(String account);
+
+    @Select("select an.userAccount,an.questionId,an.info,an.addTime,a.info questionInfo,c.name subType from testNote an join `match` a on an.questionId=a.id join subType c on a.type=c.id where an.userAccount=#{account} and `table`=3")
+    List<TestNoteDetail> getMatchNoteList(String account);
+
+    @Select("select an.userAccount,an.questionId,an.info,an.addTime,a.info questionInfo,c.name subType from testNote an join careful a on an.questionId=a.id join subType c on a.type=c.id where an.userAccount=#{account} and `table`=4")
+    List<TestNoteDetail> getCarefulNoteList(String account);
+
+    @Select("select an.userAccount,an.questionId,an.info,an.addTime,a.info questionInfo,c.name subType from testNote an join translation a on an.questionId=a.id join subType c on a.type=c.id where an.userAccount=#{account} and `table`=5")
+    List<TestNoteDetail> getTranslationNoteList(String account);
+
+    @Select("select an.userAccount,an.questionId,an.info,an.addTime,a.info questionInfo,c.name subType from testNote an join writing a on an.questionId=a.id join subType c on a.type=c.id where an.userAccount=#{account} and `table`=6")
+    List<TestNoteDetail> getWritingNoteList(String account);
+
+    @Select("select an.userAccount,an.questionId,an.info,an.addTime,a.info questionInfo,c.name subType from testNote an join cloze a on an.questionId=a.id join subType c on a.type=c.id where an.userAccount=#{account} and `table`=7")
+    List<TestNoteDetail> getClozeNoteList(String account);
+
+    @Select("select an.userAccount,an.questionId,an.info,an.addTime,a.info questionInfo,c.name subType from testNote an join new a on an.questionId=a.id join subType c on a.type=c.id where an.userAccount=#{account} and `table`=8")
+    List<TestNoteDetail> getNewNoteList(String account);
+
+
+    @Select("select * from testNote where userAccount=#{account} and questionId=#{questionId} and `table`=#{table}")
+    TestNoteDetail getTestNote(String account, int questionId,int table);
+
+    @Insert("insert into testNote(userAccount,questionId,`table`,info) values(#{account},#{questionId},#{table},#{info})")
+    boolean addTestNote(String account, int questionId,int table, String info);
+
+    @Delete("delete from testNote where userAccount=#{account} and questionId=#{questionId} and `table`=#{table}")
+    boolean removeTestNote(String account, int questionId,int table);
+
+    @Update("update testNote set info=#{info} where userAccount=#{account} and questionId=#{questionId} and `table`=#{table}")
+    boolean setTestNote(String account, int questionId,int table, String info);
+
+
+
+    @Select("select l.id,info,audio,type,name subType from listening l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${num} ${type} ${order} ${limit}")
+    List<ListeningM> getListeningList0(String order, String limit, int questionBankId, String num, String type,String account);
+
+    @Select("select l.id,info,word,name subType from banked l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${order} ${limit}")
+    List<BankedM> getBankedList0(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,num,name subType from `match` l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${order} ${limit}")
+    List<MatchM> getMatchList0(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,name subType from careful l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${order} ${limit}")
+    List<CarefulM> getCarefulList0(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,answer,name subType from translation l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${order} ${limit}")
+    List<TranslationM> getTranslationList0(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,answer,name subType from writing l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${type} ${order} ${limit}")
+    List<WritingM> getWritingList0(String order, String limit, int questionBankId, String type,String account);
+
+    @Select("select l.id,info,name subType from cloze l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${order} ${limit}")
+    List<ClozeM> getClozeList0(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,A,B,C,D,E,F,G,type,name subType from new l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${type} ${order} ${limit}")
+    List<NewM> getNewList0(String order, String limit, int questionBankId, String type,String account);
+
+
+    @Select("select l.id,info,audio,type,name subType from listening l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${num} ${type} ${order} ${limit}")
+    List<ListeningM> getListeningList1(String order, String limit, int questionBankId, String num, String type,String account);
+
+    @Select("select l.id,info,word,name subType from banked l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${order} ${limit}")
+    List<BankedM> getBankedList1(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,num,name subType from `match` l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${order} ${limit}")
+    List<MatchM> getMatchList1(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,name subType from careful l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${order} ${limit}")
+    List<CarefulM> getCarefulList1(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,answer,name subType from translation l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${order} ${limit}")
+    List<TranslationM> getTranslationList1(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,answer,name subType from writing l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${type} ${order} ${limit}")
+    List<WritingM> getWritingList1(String order, String limit, int questionBankId, String type,String account);
+
+    @Select("select l.id,info,name subType from cloze l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${order} ${limit}")
+    List<ClozeM> getClozeList1(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,A,B,C,D,E,F,G,type,name subType from new l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${type} ${order} ${limit}")
+    List<NewM> getNewList1(String order, String limit, int questionBankId, String type,String account);
+
+
+    @Select("select l.id,info,audio,type,name subType from listening l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${num} ${type} ${order} ${limit}")
+    List<ListeningM> getListeningList2(String order, String limit, int questionBankId, String num, String type,String account);
+
+    @Select("select l.id,info,word,name subType from banked l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${order} ${limit}")
+    List<BankedM> getBankedList2(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,num,name subType from `match` l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${order} ${limit}")
+    List<MatchM> getMatchList2(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,name subType from careful l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${order} ${limit}")
+    List<CarefulM> getCarefulList2(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,answer,name subType from translation l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${order} ${limit}")
+    List<TranslationM> getTranslationList2(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,answer,name subType from writing l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${type} ${order} ${limit}")
+    List<WritingM> getWritingList2(String order, String limit, int questionBankId, String type,String account);
+
+    @Select("select l.id,info,name subType from cloze l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${order} ${limit}")
+    List<ClozeM> getClozeList2(String order, String limit, int questionBankId,String account);
+
+    @Select("select l.id,info,A,B,C,D,E,F,G,type,name subType from new l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${type} ${order} ${limit}")
+    List<NewM> getNewList2(String order, String limit, int questionBankId, String type,String account);
 }
