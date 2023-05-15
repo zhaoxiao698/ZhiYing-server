@@ -21,6 +21,7 @@ public class Topic {
     private int join;
     @ApiModelProperty("收藏数")
     private int collection;
+    private boolean collectStatus;
 
     public Topic() {
     }
@@ -89,5 +90,13 @@ public class Topic {
 
     public void setCollection(int collection) {
         this.collection = collection;
+    }
+
+    public boolean getCollectStatus() {
+        return collectStatus;
+    }
+
+    public void setCollectStatus(boolean collectStatus) {
+        this.collectStatus = collectStatus;
     }
 }

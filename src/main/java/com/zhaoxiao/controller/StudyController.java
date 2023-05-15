@@ -60,8 +60,8 @@ public class StudyController {
     }
 
     @GetMapping("/getChannelById")
-    public ChannelM getChannelById(int channelId){
-        return studyService.getChannelById(channelId);
+    public ChannelM getChannelById(int channelId,String account){
+        return studyService.getChannelById(channelId,account);
     }
 
     @GetMapping("/getArticleList")
@@ -134,5 +134,10 @@ public class StudyController {
                                                        String account){
         PageHelper.startPage(pageNo,pageSize);
         return new PageInfo<>(studyService.getArticleNoteList(account));
+    }
+
+    @GetMapping("/channelCollect")
+    public boolean channelCollect(String account,int channelId,boolean collect){
+        return studyService.channelCollect(account,channelId,collect);
     }
 }

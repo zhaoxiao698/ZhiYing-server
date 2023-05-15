@@ -48,8 +48,10 @@ public class StudyService {
         return studyMapper.getChannelList(stypeId);
     }
 
-    public ChannelM getChannelById(int channelId) {
-        return studyMapper.getChannelById(channelId);
+    public ChannelM getChannelById(int channelId,String account) {
+        ChannelM channel = studyMapper.getChannelById(channelId);
+        channel.setCollectStatus(studyMapper.getChannelCollect(account,channelId)!=null);
+        return channel;
     }
 
     public List<ArticleM> getArticleList(int channelId, boolean sort, boolean order) {
@@ -97,6 +99,7 @@ public class StudyService {
     public boolean addArticleRecord(String account,int articleId) {
         if (studyMapper.getArticleRecord(account, articleId)==null){
             studyMapper.addArticleRecord(account,articleId);
+            studyMapper.addArticlePlayNum(articleId);
             return true;
         } else {
             studyMapper.setArticleRecord(account,articleId,new Date());
@@ -106,12 +109,14 @@ public class StudyService {
     public boolean collect(String account, int articleId, boolean collect) {
         if(collect){
             if(studyMapper.getCollect(account,articleId)==null) {
+                studyMapper.addArticleCollectionNum(articleId);
                 return studyMapper.addCollect(account, articleId);
             } else {
                 return true;
             }
         } else {
             if(studyMapper.getCollect(account,articleId)!=null) {
+                studyMapper.subArticleCollectionNum(articleId);
                 return studyMapper.removeCollect(account, articleId);
             } else {
                 return true;
@@ -169,5 +174,23 @@ public class StudyService {
 
     public List<ArticleNoteDetail> getArticleNoteList(String account) {
         return studyMapper.getArticleNoteList(account);
+    }
+
+    public boolean channelCollect(String account, int channelId, boolean collect) {
+        if(collect){
+            if(studyMapper.getChannelCollect(account,channelId)==null) {
+                studyMapper.addChannelCollectionNum(channelId);
+                return studyMapper.addChannelCollect(account, channelId);
+            } else {
+                return true;
+            }
+        } else {
+            if(studyMapper.getChannelCollect(account,channelId)!=null) {
+                studyMapper.subChannelCollectionNum(channelId);
+                return studyMapper.removeChannelCollect(account, channelId);
+            } else {
+                return true;
+            }
+        }
     }
 }

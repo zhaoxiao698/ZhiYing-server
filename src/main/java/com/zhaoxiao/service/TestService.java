@@ -62,6 +62,7 @@ public class TestService {
             }
             listening.setListeningQuestionList(listeningQuestionList);
             listening.setSubQuestionNum(listeningQuestionList.size());
+            listening.setCollectStatus(testMapper.getCollect(account, listening.getId(),1) != null);
         }
         return listeningList;
     }
@@ -107,6 +108,7 @@ public class TestService {
             banked.setWordList(banked.getWord().split(","));
             banked.setBankedQuestionList(bankedQuestionList);
             banked.setSubQuestionNum(bankedQuestionList.size());
+            banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),2) != null);
         }
         return bankedList;
     }
@@ -151,6 +153,7 @@ public class TestService {
             }
             match.setMatchQuestionList(matchQuestionList);
             match.setSubQuestionNum(matchQuestionList.size());
+            match.setCollectStatus(testMapper.getCollect(account, match.getId(),3) != null);
         }
         return matchList;
     }
@@ -195,6 +198,7 @@ public class TestService {
             }
             careful.setCarefulQuestionList(carefulQuestionList);
             careful.setSubQuestionNum(carefulQuestionList.size());
+            careful.setCollectStatus(testMapper.getCollect(account, careful.getId(),4) != null);
         }
         return carefulList;
     }
@@ -234,6 +238,7 @@ public class TestService {
 
         for (TranslationM translation : translationList) {
             translation.setOrder(i++);
+            translation.setCollectStatus(testMapper.getCollect(account, translation.getId(),5) != null);
         }
         return translationList;
     }
@@ -276,6 +281,7 @@ public class TestService {
 
         for (WritingM writing : writingList) {
             writing.setOrder(i++);
+            writing.setCollectStatus(testMapper.getCollect(account, writing.getId(),6) != null);
         }
         return writingList;
     }
@@ -320,6 +326,7 @@ public class TestService {
             }
             cloze.setClozeQuestionList(clozeQuestionList);
             cloze.setSubQuestionNum(clozeQuestionList.size());
+            cloze.setCollectStatus(testMapper.getCollect(account, cloze.getId(),7) != null);
         }
         return clozeList;
     }
@@ -367,6 +374,7 @@ public class TestService {
             }
             newM.setNewQuestionList(newQuestionList);
             newM.setSubQuestionNum(newQuestionList.size());
+            newM.setCollectStatus(testMapper.getCollect(account, newM.getId(),8) != null);
         }
         return newList;
     }
@@ -604,6 +612,7 @@ public class TestService {
                     }
                     listening.setListeningQuestionList(listeningQuestionList);
                     listening.setSubQuestionNum(listeningQuestionList.size());
+                    listening.setCollectStatus(testMapper.getCollect(account, listening.getId(),table) != null);
                 }
                 return listeningList;
             case 2:
@@ -616,6 +625,7 @@ public class TestService {
                     banked.setWordList(banked.getWord().split(","));
                     banked.setBankedQuestionList(bankedQuestionList);
                     banked.setSubQuestionNum(bankedQuestionList.size());
+                    banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),table) != null);
                 }
                 return bankedList;
             case 3:
@@ -627,6 +637,7 @@ public class TestService {
                     }
                     match.setMatchQuestionList(matchQuestionList);
                     match.setSubQuestionNum(matchQuestionList.size());
+                    match.setCollectStatus(testMapper.getCollect(account, match.getId(),table) != null);
                 }
                 return matchList;
             case 4:
@@ -638,18 +649,21 @@ public class TestService {
                     }
                     careful.setCarefulQuestionList(carefulQuestionList);
                     careful.setSubQuestionNum(carefulQuestionList.size());
+                    careful.setCollectStatus(testMapper.getCollect(account, careful.getId(),table) != null);
                 }
                 return carefulList;
             case 5:
                 List<TranslationM> translationList = testMapper.getTranslationCollectionList(account);
                 for (TranslationM translation : translationList) {
                     translation.setOrder(i++);
+                    translation.setCollectStatus(testMapper.getCollect(account, translation.getId(),table) != null);
                 }
                 return translationList;
             case 6:
                 List<WritingM> writingList = testMapper.getWritingCollectionList(account);
                 for (WritingM writing : writingList) {
                     writing.setOrder(i++);
+                    writing.setCollectStatus(testMapper.getCollect(account, writing.getId(),table) != null);
                 }
                 return writingList;
             case 7:
@@ -661,6 +675,7 @@ public class TestService {
                     }
                     cloze.setClozeQuestionList(clozeQuestionList);
                     cloze.setSubQuestionNum(clozeQuestionList.size());
+                    cloze.setCollectStatus(testMapper.getCollect(account, cloze.getId(),table) != null);
                 }
                 return clozeList;
             case 8:
@@ -672,13 +687,14 @@ public class TestService {
                     }
                     newM.setNewQuestionList(newQuestionList);
                     newM.setSubQuestionNum(newQuestionList.size());
+                    newM.setCollectStatus(testMapper.getCollect(account, newM.getId(),table) != null);
                 }
                 return newList;
         }
         return null;
     }
 
-    public QuestionM getQuestionById(int questionId, int table) {
+    public QuestionM getQuestionById(int questionId, int table,String account) {
         int i = 1;
         switch (table){
             case 1:
@@ -689,6 +705,7 @@ public class TestService {
                 }
                 listening.setListeningQuestionList(listeningQuestionList);
                 listening.setSubQuestionNum(listeningQuestionList.size());
+                listening.setCollectStatus(testMapper.getCollect(account, listening.getId(),table) != null);
                 return listening;
             case 2:
                 BankedM banked = testMapper.getBankedQuestionById(questionId);
@@ -699,6 +716,7 @@ public class TestService {
                 banked.setWordList(banked.getWord().split(","));
                 banked.setBankedQuestionList(bankedQuestionList);
                 banked.setSubQuestionNum(bankedQuestionList.size());
+                banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),table) != null);
                 return banked;
             case 3:
                 MatchM match = testMapper.getMatchQuestionById(questionId);
@@ -708,6 +726,7 @@ public class TestService {
                 }
                 match.setMatchQuestionList(matchQuestionList);
                 match.setSubQuestionNum(matchQuestionList.size());
+                match.setCollectStatus(testMapper.getCollect(account, match.getId(),table) != null);
                 return match;
             case 4:
                 CarefulM careful = testMapper.getCarefulQuestionById(questionId);
@@ -717,14 +736,17 @@ public class TestService {
                 }
                 careful.setCarefulQuestionList(carefulQuestionList);
                 careful.setSubQuestionNum(carefulQuestionList.size());
+                careful.setCollectStatus(testMapper.getCollect(account, careful.getId(),table) != null);
                 return careful;
             case 5:
                 TranslationM translation = testMapper.getTranslationQuestionById(questionId);
                 translation.setOrder(i++);
+                translation.setCollectStatus(testMapper.getCollect(account, translation.getId(),table) != null);
                 return translation;
             case 6:
                 WritingM writing = testMapper.getWritingQuestionById(questionId);
                 writing.setOrder(i++);
+                writing.setCollectStatus(testMapper.getCollect(account, writing.getId(),table) != null);
                 return writing;
             case 7:
                 ClozeM cloze = testMapper.getClozeQuestionById(questionId);
@@ -734,6 +756,7 @@ public class TestService {
                 }
                 cloze.setClozeQuestionList(clozeQuestionList);
                 cloze.setSubQuestionNum(clozeQuestionList.size());
+                cloze.setCollectStatus(testMapper.getCollect(account, cloze.getId(),table) != null);
                 return cloze;
             case 8:
                 NewM newM = testMapper.getNewQuestionById(questionId);
@@ -743,6 +766,7 @@ public class TestService {
                 }
                 newM.setNewQuestionList(newQuestionList);
                 newM.setSubQuestionNum(newQuestionList.size());
+                newM.setCollectStatus(testMapper.getCollect(account, newM.getId(),table) != null);
                 return newM;
         }
         return null;
@@ -760,6 +784,7 @@ public class TestService {
                     }
                     listening.setListeningQuestionList(listeningQuestionList);
                     listening.setSubQuestionNum(listeningQuestionList.size());
+                    listening.setCollectStatus(testMapper.getCollect(account, listening.getId(),table) != null);
                 }
                 return listeningList;
             case 2:
@@ -772,6 +797,7 @@ public class TestService {
                     banked.setWordList(banked.getWord().split(","));
                     banked.setBankedQuestionList(bankedQuestionList);
                     banked.setSubQuestionNum(bankedQuestionList.size());
+                    banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),table) != null);
                 }
                 return bankedList;
             case 3:
@@ -783,6 +809,7 @@ public class TestService {
                     }
                     match.setMatchQuestionList(matchQuestionList);
                     match.setSubQuestionNum(matchQuestionList.size());
+                    match.setCollectStatus(testMapper.getCollect(account, match.getId(),table) != null);
                 }
                 return matchList;
             case 4:
@@ -794,18 +821,21 @@ public class TestService {
                     }
                     careful.setCarefulQuestionList(carefulQuestionList);
                     careful.setSubQuestionNum(carefulQuestionList.size());
+                    careful.setCollectStatus(testMapper.getCollect(account, careful.getId(),table) != null);
                 }
                 return carefulList;
             case 5:
                 List<TranslationM> translationList = testMapper.getTranslationHistoryList(account);
                 for (TranslationM translation : translationList) {
                     translation.setOrder(i++);
+                    translation.setCollectStatus(testMapper.getCollect(account, translation.getId(),table) != null);
                 }
                 return translationList;
             case 6:
                 List<WritingM> writingList = testMapper.getWritingHistoryList(account);
                 for (WritingM writing : writingList) {
                     writing.setOrder(i++);
+                    writing.setCollectStatus(testMapper.getCollect(account, writing.getId(),table) != null);
                 }
                 return writingList;
             case 7:
@@ -817,6 +847,7 @@ public class TestService {
                     }
                     cloze.setClozeQuestionList(clozeQuestionList);
                     cloze.setSubQuestionNum(clozeQuestionList.size());
+                    cloze.setCollectStatus(testMapper.getCollect(account, cloze.getId(),table) != null);
                 }
                 return clozeList;
             case 8:
@@ -828,6 +859,7 @@ public class TestService {
                     }
                     newM.setNewQuestionList(newQuestionList);
                     newM.setSubQuestionNum(newQuestionList.size());
+                    newM.setCollectStatus(testMapper.getCollect(account, newM.getId(),table) != null);
                 }
                 return newList;
         }
@@ -892,6 +924,7 @@ public class TestService {
                     }
                     listening.setListeningQuestionList(listeningQuestionList);
                     listening.setSubQuestionNum(listeningQuestionList.size());
+                    listening.setCollectStatus(testMapper.getCollect(account, listening.getId(),table) != null);
                 }
                 return listeningList;
             case 2:
@@ -904,6 +937,7 @@ public class TestService {
                     banked.setWordList(banked.getWord().split(","));
                     banked.setBankedQuestionList(bankedQuestionList);
                     banked.setSubQuestionNum(bankedQuestionList.size());
+                    banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),table) != null);
                 }
                 return bankedList;
             case 3:
@@ -915,6 +949,7 @@ public class TestService {
                     }
                     match.setMatchQuestionList(matchQuestionList);
                     match.setSubQuestionNum(matchQuestionList.size());
+                    match.setCollectStatus(testMapper.getCollect(account, match.getId(),table) != null);
                 }
                 return matchList;
             case 4:
@@ -926,18 +961,21 @@ public class TestService {
                     }
                     careful.setCarefulQuestionList(carefulQuestionList);
                     careful.setSubQuestionNum(carefulQuestionList.size());
+                    careful.setCollectStatus(testMapper.getCollect(account, careful.getId(),table) != null);
                 }
                 return carefulList;
             case 5:
                 List<TranslationM> translationList = testMapper.getTranslationWrongList(account);
                 for (TranslationM translation : translationList) {
                     translation.setOrder(i++);
+                    translation.setCollectStatus(testMapper.getCollect(account, translation.getId(),table) != null);
                 }
                 return translationList;
             case 6:
                 List<WritingM> writingList = testMapper.getWritingWrongList(account);
                 for (WritingM writing : writingList) {
                     writing.setOrder(i++);
+                    writing.setCollectStatus(testMapper.getCollect(account, writing.getId(),table) != null);
                 }
                 return writingList;
             case 7:
@@ -949,6 +987,7 @@ public class TestService {
                     }
                     cloze.setClozeQuestionList(clozeQuestionList);
                     cloze.setSubQuestionNum(clozeQuestionList.size());
+                    cloze.setCollectStatus(testMapper.getCollect(account, cloze.getId(),table) != null);
                 }
                 return clozeList;
             case 8:
@@ -960,6 +999,7 @@ public class TestService {
                     }
                     newM.setNewQuestionList(newQuestionList);
                     newM.setSubQuestionNum(newQuestionList.size());
+                    newM.setCollectStatus(testMapper.getCollect(account, newM.getId(),table) != null);
                 }
                 return newList;
         }
@@ -970,7 +1010,7 @@ public class TestService {
         return testMapper.getTestTruePaperList(questionBankId);
     }
 
-    public Paper getTruePaper(int truePaperId) {
+    public Paper getTruePaper(int truePaperId,String account) {
         Paper paper = new Paper();
         int i = 1;
 
@@ -982,6 +1022,7 @@ public class TestService {
             }
             listening.setListeningQuestionList(listeningQuestionList);
             listening.setSubQuestionNum(listeningQuestionList.size());
+            listening.setCollectStatus(testMapper.getCollect(account, listening.getId(),1) != null);
         }
         paper.setListeningList(listeningList);
 
@@ -994,6 +1035,7 @@ public class TestService {
             banked.setWordList(banked.getWord().split(","));
             banked.setBankedQuestionList(bankedQuestionList);
             banked.setSubQuestionNum(bankedQuestionList.size());
+            banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),2) != null);
         }
         paper.setBankedList(bankedList);
 
@@ -1005,6 +1047,7 @@ public class TestService {
             }
             match.setMatchQuestionList(matchQuestionList);
             match.setSubQuestionNum(matchQuestionList.size());
+            match.setCollectStatus(testMapper.getCollect(account, match.getId(),3) != null);
         }
         paper.setMatchList(matchList);
 
@@ -1016,6 +1059,7 @@ public class TestService {
             }
             cloze.setClozeQuestionList(clozeQuestionList);
             cloze.setSubQuestionNum(clozeQuestionList.size());
+            cloze.setCollectStatus(testMapper.getCollect(account, cloze.getId(),7) != null);
         }
         paper.setClozeList(clozeList);
 
@@ -1027,6 +1071,7 @@ public class TestService {
             }
             careful.setCarefulQuestionList(carefulQuestionList);
             careful.setSubQuestionNum(carefulQuestionList.size());
+            careful.setCollectStatus(testMapper.getCollect(account, careful.getId(),4) != null);
         }
         paper.setCarefulList(carefulList);
 
@@ -1038,18 +1083,21 @@ public class TestService {
             }
             newM.setNewQuestionList(newQuestionList);
             newM.setSubQuestionNum(newQuestionList.size());
+            newM.setCollectStatus(testMapper.getCollect(account, newM.getId(),8) != null);
         }
         paper.setNewList(newList);
 
         List<TranslationM> translationList = testMapper.getTranslationListTrue(truePaperId);
         for (TranslationM translation : translationList) {
             translation.setOrder(i++);
+            translation.setCollectStatus(testMapper.getCollect(account, translation.getId(),5) != null);
         }
         paper.setTranslationList(translationList);
 
         List<WritingM> writingList = testMapper.getWritingListTrue(truePaperId);
         for (WritingM writing : writingList) {
             writing.setOrder(i++);
+            writing.setCollectStatus(testMapper.getCollect(account, writing.getId(),6) != null);
         }
         paper.setWritingList(writingList);
 
@@ -1099,7 +1147,7 @@ public class TestService {
         }
     }
 
-    public Paper getExam(int questionBankId) {
+    public Paper getExam(int questionBankId,String account) {
         Paper paper = new Paper();
         int i = 1;
         String randomS = "order by rand()";
@@ -1132,6 +1180,7 @@ public class TestService {
             }
             listening.setListeningQuestionList(listeningQuestionList);
             listening.setSubQuestionNum(listeningQuestionList.size());
+            listening.setCollectStatus(testMapper.getCollect(account, listening.getId(),1) != null);
         }
         paper.setListeningList(listeningList);
 
@@ -1146,6 +1195,7 @@ public class TestService {
             banked.setWordList(banked.getWord().split(","));
             banked.setBankedQuestionList(bankedQuestionList);
             banked.setSubQuestionNum(bankedQuestionList.size());
+            banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),2) != null);
         }
         paper.setBankedList(bankedList);
 
@@ -1159,6 +1209,7 @@ public class TestService {
             }
             match.setMatchQuestionList(matchQuestionList);
             match.setSubQuestionNum(matchQuestionList.size());
+            match.setCollectStatus(testMapper.getCollect(account, match.getId(),3) != null);
         }
         paper.setMatchList(matchList);
 
@@ -1172,6 +1223,7 @@ public class TestService {
             }
             cloze.setClozeQuestionList(clozeQuestionList);
             cloze.setSubQuestionNum(clozeQuestionList.size());
+            cloze.setCollectStatus(testMapper.getCollect(account, cloze.getId(),7) != null);
         }
         paper.setClozeList(clozeList);
 
@@ -1187,6 +1239,7 @@ public class TestService {
             }
             careful.setCarefulQuestionList(carefulQuestionList);
             careful.setSubQuestionNum(carefulQuestionList.size());
+            careful.setCollectStatus(testMapper.getCollect(account, careful.getId(),4) != null);
         }
         paper.setCarefulList(carefulList);
 
@@ -1207,12 +1260,14 @@ public class TestService {
             }
             newM.setNewQuestionList(newQuestionList);
             newM.setSubQuestionNum(newQuestionList.size());
+            newM.setCollectStatus(testMapper.getCollect(account, newM.getId(),8) != null);
         }
         paper.setNewList(newList);
 
         translationList.addAll(testMapper.getTranslationList(randomS,"limit 1",questionBankId));
         for (TranslationM translation : translationList) {
             translation.setOrder(i++);
+            translation.setCollectStatus(testMapper.getCollect(account, translation.getId(),5) != null);
         }
         paper.setTranslationList(translationList);
 
@@ -1222,9 +1277,26 @@ public class TestService {
         writingList.addAll(testMapper.getWritingList(randomS,"limit 1",questionBankId,"and type=13"));
         for (WritingM writing : writingList) {
             writing.setOrder(i++);
+            writing.setCollectStatus(testMapper.getCollect(account, writing.getId(),6) != null);
         }
         paper.setWritingList(writingList);
 
         return paper;
+    }
+
+    public boolean collect(String account, int questionId, int table, boolean collect) {
+        if(collect){
+            if(testMapper.getCollect(account,questionId,table)==null) {
+                return testMapper.addCollect(account, questionId,table);
+            } else {
+                return true;
+            }
+        } else {
+            if(testMapper.getCollect(account,questionId,table)!=null) {
+                return testMapper.removeCollect(account, questionId,table);
+            } else {
+                return true;
+            }
+        }
     }
 }

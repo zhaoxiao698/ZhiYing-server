@@ -102,8 +102,8 @@ public class TestController {
     }
 
     @GetMapping("/getQuestionById")
-    public QuestionM getQuestionById(int questionId, int table){
-        return testService.getQuestionById(questionId,table);
+    public QuestionM getQuestionById(int questionId, int table,String account){
+        return testService.getQuestionById(questionId,table,account);
     }
 
     @GetMapping("/getTestHistoryList")
@@ -141,8 +141,8 @@ public class TestController {
     }
 
     @GetMapping("/getTruePaper")
-    public Paper getTruePaper(int truePaperId){
-        return testService.getTruePaper(truePaperId);
+    public Paper getTruePaper(int truePaperId,String account){
+        return testService.getTruePaper(truePaperId,account);
     }
 
     @GetMapping("/getTestNoteList")
@@ -169,7 +169,12 @@ public class TestController {
     }
 
     @GetMapping("/getExam")
-    public Paper getExam(int questionBankId){
-        return testService.getExam(questionBankId);
+    public Paper getExam(int questionBankId,String account){
+        return testService.getExam(questionBankId,account);
+    }
+
+    @GetMapping("/collect")
+    public boolean collect(String account,int questionId,int table,boolean collect){
+        return testService.collect(account,questionId,table,collect);
     }
 }

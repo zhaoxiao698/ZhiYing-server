@@ -43,6 +43,17 @@ public class TrendM {
     private CommentM hotComment;
     @ApiModelProperty("（不用管）")
     private Date historyTime;
+    private int linkId;
+    private int linkType;
+    private int linkTable;
+    private String linkTitle;
+    private String linkTypeS;
+    private String channelName;
+    private String articleImg;
+    private String subType;
+    private boolean likeStatus;
+    private boolean collectStatus;
+    private boolean attentionStatus;
 
     public TrendM() {
     }
@@ -191,5 +202,93 @@ public class TrendM {
 
     public void setHistoryTime(Date historyTime) {
         this.historyTime = historyTime;
+    }
+
+    public int getLinkId() {
+        return linkId;
+    }
+
+    public void setLinkId(int linkId) {
+        this.linkId = linkId;
+    }
+
+    public int getLinkType() {
+        return linkType;
+    }
+
+    public void setLinkType(int linkType) {
+        this.linkType = linkType;
+    }
+
+    public int getLinkTable() {
+        return linkTable;
+    }
+
+    public void setLinkTable(int linkTable) {
+        this.linkTable = linkTable;
+    }
+
+    public String getLinkTitle() {
+        return linkTitle;
+    }
+
+    public void setLinkTitle(String linkTitle) {
+        this.linkTitle = linkTitle;
+    }
+
+    public String getLinkTypeS() {
+        return linkTypeS;
+    }
+
+    public void setLinkTypeS(String linkTypeS) {
+        this.linkTypeS = linkTypeS;
+    }
+
+    public String getChannelName() {
+        return channelName;
+    }
+
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
+
+    public String getArticleImg() {
+        return articleImg;
+    }
+
+    public void setArticleImg(String articleImg) {
+        this.articleImg = articleImg;
+    }
+
+    public String getSubType() {
+        return subType;
+    }
+
+    public void setSubType(String subType) {
+        this.subType = subType;
+    }
+
+    public boolean getLikeStatus() {
+        return likeStatus;
+    }
+
+    public void setLikeStatus(boolean likeStatus) {
+        this.likeStatus = likeStatus;
+    }
+
+    public boolean getCollectStatus() {
+        return collectStatus;
+    }
+
+    public void setCollectStatus(boolean collectStatus) {
+        this.collectStatus = collectStatus;
+    }
+
+    public boolean getAttentionStatus() {
+        return attentionStatus;
+    }
+
+    public void setAttentionStatus(boolean attentionStatus) {
+        this.attentionStatus = attentionStatus;
     }
 }

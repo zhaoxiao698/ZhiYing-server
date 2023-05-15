@@ -1,5 +1,6 @@
 package com.zhaoxiao.entity.mine;
 
+import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -27,6 +28,11 @@ public class User {
     private Date addTime;
     @ApiModelProperty("状态--> 0:冻结，1:可用")
     private Integer status;
+    private String sign;
+    private String mail;
+    private int trendNum;
+    private int attentionNum;
+    private int fanNum;
 
     public User() {
     }
@@ -122,5 +128,45 @@ public class User {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public int getTrendNum() {
+        return trendNum;
+    }
+
+    public void setTrendNum(int trendNum) {
+        this.trendNum = trendNum;
+    }
+
+    public int getAttentionNum() {
+        return attentionNum;
+    }
+
+    public void setAttentionNum(int attentionNum) {
+        this.attentionNum = attentionNum;
+    }
+
+    public int getFanNum() {
+        return fanNum;
+    }
+
+    public void setFanNum(int fanNum) {
+        this.fanNum = fanNum;
     }
 }

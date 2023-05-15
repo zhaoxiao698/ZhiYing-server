@@ -10,6 +10,7 @@ public class QuestionM {
     private String subType;
     private int questionBankId;
     private Date historyTime;
+    private boolean collectStatus;
 
     public QuestionM() {
     }
@@ -74,5 +75,13 @@ public class QuestionM {
 
     public void setHistoryTime(Date historyTime) {
         this.historyTime = historyTime;
+    }
+
+    public boolean getCollectStatus() {
+        return collectStatus;
+    }
+
+    public void setCollectStatus(boolean collectStatus) {
+        this.collectStatus = collectStatus;
     }
 }

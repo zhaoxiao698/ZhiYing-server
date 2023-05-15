@@ -418,4 +418,13 @@ public interface TestMapper {
     @Select("select l.id,info,A,B,C,D,E,F,G,type,name subType from new l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
             "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${type} ${order} ${limit}")
     List<NewM> getNewList2(String order, String limit, int questionBankId, String type,String account);
+
+    @Select("select 1 from testCollection where userAccount=#{account} and questionId=#{questionId} and `table`=#{table}")
+    Integer getCollect(String account, int questionId, int table);
+
+    @Insert("insert into testCollection(userAccount,questionId,`table`) values(#{account},#{questionId},#{table})")
+    boolean addCollect(String account, int questionId, int table);
+
+    @Delete("delete from testCollection where userAccount=#{account} and questionId=#{questionId} and `table`=#{table}")
+    boolean removeCollect(String account, int questionId, int table);
 }

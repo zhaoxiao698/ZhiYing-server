@@ -101,4 +101,28 @@ public interface StudyMapper {
 
     @Select("select an.userAccount,an.articleId,an.info,an.addTime,a.title articleTitle,a.img articleImg,c.name channelName from articleNote an join article a on an.articleId=a.id join channel c on a.channelId=c.id where an.userAccount=#{account}")
     List<ArticleNoteDetail> getArticleNoteList(String account);
+
+    @Select("select 1 from channelCollection where userAccount=#{account} and channelId=#{channelId}")
+    Integer getChannelCollect(String account, int channelId);
+
+    @Insert("insert into channelCollection(userAccount,channelId) values(#{account},#{channelId})")
+    boolean addChannelCollect(String account, int channelId);
+
+    @Delete("delete from channelCollection where userAccount=#{account} and channelId=#{channelId}")
+    boolean removeChannelCollect(String account, int channelId);
+
+    @Update("update article set collection=collection+1 where id=#{articleId}")
+    void addArticleCollectionNum(int articleId);
+
+    @Update("update article set collection=collection-1 where id=#{articleId}")
+    void subArticleCollectionNum(int articleId);
+
+    @Update("update channel set collection=collection+1 where id=#{channelId}")
+    void addChannelCollectionNum(int channelId);
+
+    @Update("update channel set collection=collection-1 where id=#{channelId}")
+    void subChannelCollectionNum(int channelId);
+
+    @Update("update article set count=count+1 where id=#{articleId}")
+    void addArticlePlayNum(int articleId);
 }

@@ -21,6 +21,7 @@ public class ChannelM {
     private Integer collection;
     @ApiModelProperty("最近更新时间")
     private Date lastTime;
+    private boolean collectStatus;
 
     public ChannelM() {
     }
@@ -89,5 +90,13 @@ public class ChannelM {
 
     public void setLastTime(Date lastTime) {
         this.lastTime = lastTime;
+    }
+
+    public boolean getCollectStatus() {
+        return collectStatus;
+    }
+
+    public void setCollectStatus(boolean collectStatus) {
+        this.collectStatus = collectStatus;
     }
 }

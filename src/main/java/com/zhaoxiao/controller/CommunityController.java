@@ -8,10 +8,10 @@ import com.zhaoxiao.model.community.TrendM;
 import com.zhaoxiao.response.BaseResponse;
 import com.zhaoxiao.service.CommunityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @BaseResponse
@@ -26,9 +26,10 @@ public class CommunityController {
                                          @RequestParam(defaultValue = "0") int sort,
                                          @RequestParam(defaultValue = "false") boolean order,
                                          @RequestParam(defaultValue = "") String fanAccount,
-                                         @RequestParam(defaultValue = "-1") int topicId){
+                                         @RequestParam(defaultValue = "-1") int topicId,
+                                         @RequestParam(defaultValue = "") String account){
         PageHelper.startPage(pageNo,pageSize);
-        return new PageInfo<>(communityService.getTrendList(sort,order,fanAccount,topicId));
+        return new PageInfo<>(communityService.getTrendList(sort,order,fanAccount,topicId,account));
     }
 
     @GetMapping("/getCommentList")
@@ -42,8 +43,8 @@ public class CommunityController {
     }
 
     @GetMapping("/getTrend")
-    public TrendM getTrend(int trendId){
-        return communityService.getTrend(trendId);
+    public TrendM getTrend(int trendId,String account){
+        return communityService.getTrend(trendId,account);
     }
 
     @GetMapping("/getTopicList")
@@ -54,8 +55,8 @@ public class CommunityController {
     }
 
     @GetMapping("/getTopic")
-    public Topic getTopic(int topicId){
-        return communityService.getTopic(topicId);
+    public Topic getTopic(int topicId,String account){
+        return communityService.getTopic(topicId,account);
     }
 
     @GetMapping("/getTrendCollectionList")
@@ -85,5 +86,47 @@ public class CommunityController {
     @GetMapping("/addTrendRecord")
     public boolean addTrendRecord(String account,int trendId){
         return communityService.addTrendRecord(account, trendId);
+    }
+
+    @PostMapping("/publishTrend")
+    public boolean publishTrend(@RequestParam("account") String account,
+                                @RequestParam("title") String title,
+                                @RequestParam("info") String info,
+                                @RequestParam("topicIdList") List<Integer> topicIdList,
+                                @RequestParam("imgFileList") List<MultipartFile> imgFileList,
+                                @RequestParam("linkId") int linkId,
+                                @RequestParam("linkType") int linkType,
+                                @RequestParam("linkTable") int linkTable){
+        return communityService.publishTrend(account, title, info, topicIdList, imgFileList, linkId, linkType, linkTable);
+    }
+
+    @GetMapping("/deleteTrend")
+    public boolean deleteTrend(int trendId){
+        return communityService.deleteTrend(trendId);
+    }
+
+    @PostMapping("/createTopic")
+    public boolean createTopic(@RequestBody Topic topic){
+        return communityService.createTopic(topic);
+    }
+
+    @GetMapping("/like")
+    public boolean like(String account,int trendId,boolean like){
+        return communityService.like(account,trendId,like);
+    }
+
+    @GetMapping("/collect")
+    public boolean collect(String account,int trendId,boolean collect){
+        return communityService.collect(account,trendId,collect);
+    }
+
+    @GetMapping("/attention")
+    public boolean attention(String userAccount,String fanAccount,boolean attention){
+        return communityService.attention(userAccount,fanAccount,attention);
+    }
+
+    @GetMapping("/topicCollect")
+    public boolean topicCollect(String account,int topicId,boolean collect){
+        return communityService.topicCollect(account,topicId,collect);
     }
 }
