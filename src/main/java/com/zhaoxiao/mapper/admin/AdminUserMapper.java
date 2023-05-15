@@ -56,4 +56,10 @@ public interface AdminUserMapper {
 
     @Update("update user set phone=#{phone},name=#{name},age=#{age},sex=#{sex} where account=#{account}")
     boolean setUserWithNoImg(User user);
+
+    @Select("select password from user where account=#{account}")
+    String getPassword(String account);
+
+//    @Update("update user set password=#{newPassword} where account=#{account}")
+//    boolean setPassword(String account, String newPassword);
 }

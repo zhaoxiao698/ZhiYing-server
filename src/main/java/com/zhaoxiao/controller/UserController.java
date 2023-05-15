@@ -38,6 +38,7 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
+    @Deprecated
     public boolean addUser(@RequestBody User user){
         userService.addUser(user);
         return true;
@@ -54,6 +55,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
+    @Deprecated
     public boolean register(String phone, String password, String name){
         return userService.register(phone,password,name);
     }
@@ -159,5 +161,10 @@ public class UserController {
                                          @RequestParam(defaultValue = "") String account){
         PageHelper.startPage(pageNo,pageSize);
         return new PageInfo<>(userService.getMyFanList(account));
+    }
+
+    @GetMapping("/getPasswordTest")
+    public String getPasswordTest(String account){
+        return userService.getPasswordTest(account);
     }
 }

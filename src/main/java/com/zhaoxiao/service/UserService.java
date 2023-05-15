@@ -12,6 +12,7 @@ import com.zhaoxiao.model.mine.Login;
 import com.zhaoxiao.model.mine.CalendarInfo;
 import com.zhaoxiao.util.AccountUtil;
 import com.zhaoxiao.util.MyFile;
+import org.jasypt.encryption.StringEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,8 @@ public class UserService {
     private UserMapper userMapper;
     @Autowired
     private CommunityMapper communityMapper;
+    @Autowired
+    private StringEncryptor stringEncryptor;
 
     @Value("${file.staticPatternPath}")
     private String staticPatternPath;
@@ -40,14 +43,29 @@ public class UserService {
     private String accessPath;
 
     public List<User> getList() {
-        return userMapper.getList();
+        List<User> userList = userMapper.getList();
+        for (User user : userList) {
+            if (user != null) {
+//                String decryptedPassword = stringEncryptor.decrypt(user.getPassword());
+//                user.setPassword(decryptedPassword);
+                user.setPassword(null);
+//                user.setPhone(stringEncryptor.decrypt(user.getPhone()));
+//                user.setMail(stringEncryptor.decrypt(user.getMail()));
+            }
+        }
+        return userList;
     }
 
     public User getByAccount(String account) {
         User user = userMapper.getByAccount(account);
-        user.setTrendNum(userMapper.getTrendNum(account));
-        user.setAttentionNum(userMapper.getAttentionNum(account));
-        user.setFanNum(userMapper.getFanNum(account));
+        if (user != null) {
+            user.setTrendNum(userMapper.getTrendNum(account));
+            user.setAttentionNum(userMapper.getAttentionNum(account));
+            user.setFanNum(userMapper.getFanNum(account));
+//            String decryptedPassword = stringEncryptor.decrypt(user.getPassword());
+//            user.setPassword(decryptedPassword);
+            user.setPassword(null);
+        }
         return user;
     }
 
@@ -55,10 +73,39 @@ public class UserService {
         userMapper.addUser(user);
     }
 
+    @Deprecated
+    //不用加密后比较
+    public Login loginByPassword1(String account, String password) {
+        String encryptedPassword = stringEncryptor.encrypt(password);
+        Login login;
+        if(userMapper.selectAccountPassword(account,encryptedPassword)==null){
+            if (userMapper.selectPhonePassword(account, encryptedPassword) == null){
+                login = new Login(null, Login.LoginType.ERROR);
+            }else {
+                login = new Login(userMapper.getAccountByPhone(account), Login.LoginType.LOGIN_BY_PHONE);
+            }
+        }else {
+            login = new Login(account, Login.LoginType.LOGIN_BY_ACCOUNT);
+        }
+        return login;
+    }
+
     public Login loginByPassword(String account, String password) {
         Login login;
-        if(userMapper.selectAccountPassword(account,password)==null){
-            if (userMapper.selectPhonePassword(account, password) == null){
+        //账号
+        String decryptedByAccount = stringEncryptor.decrypt(userMapper.getPassword(account));
+        if (decryptedByAccount==null){
+            login = new Login(null, Login.LoginType.ERROR);
+            return login;
+        }
+        if(!decryptedByAccount.equals(password)){
+            //手机号
+            String decryptedByPhone = stringEncryptor.decrypt(userMapper.getPasswordByPhone(account));
+            if (decryptedByPhone==null){
+                login = new Login(null, Login.LoginType.ERROR);
+                return login;
+            }
+            if (!decryptedByPhone.equals(password)){
                 login = new Login(null, Login.LoginType.ERROR);
             }else {
                 login = new Login(userMapper.getAccountByPhone(account), Login.LoginType.LOGIN_BY_PHONE);
@@ -119,15 +166,40 @@ public class UserService {
         }
     }
 
-    public boolean setPassword(String account, String oldPassword, String newPassword) {
+    @Deprecated
+    //加密后比较，每次加密不同
+    public boolean setPassword1(String account, String oldPassword, String newPassword) {
+        String encryptedOldPassword = stringEncryptor.encrypt(oldPassword);
+        String encryptedNewPassword = stringEncryptor.encrypt(newPassword);
         if (getPassword(account)){
-            if (userMapper.getOldPassword(account,oldPassword)!=null){
-                userMapper.setPassword(account,newPassword);
+            if (userMapper.getOldPassword(account,encryptedOldPassword)!=null){
+                userMapper.setPassword(account,encryptedNewPassword);
                 return true;
             }
             return false;
         }
-        userMapper.addPassword(account,newPassword);
+        userMapper.addPassword(account,encryptedNewPassword);
+        return true;
+    }
+
+    //解密比较
+    public boolean setPassword(String account, String oldPassword, String newPassword) {
+        //加密
+        String encryptedNewPassword = stringEncryptor.encrypt(newPassword);
+        //数据库原密码
+        String old = userMapper.getPassword(account);
+        //数据库原密码解密
+        String decryptedOld = stringEncryptor.decrypt(old);
+        if (decryptedOld!=null&&!decryptedOld.equals("")){
+            //数据库原密码解密并比较
+//            String decrypted = stringEncryptor.decrypt(old);
+            if (decryptedOld.equals(oldPassword)){
+                userMapper.setPassword(account,encryptedNewPassword);
+                return true;
+            }
+            return false;
+        }
+        userMapper.addPassword(account,encryptedNewPassword);
         return true;
     }
 
@@ -478,10 +550,31 @@ public class UserService {
     }
 
     public List<User> getMyAttentionList(String account) {
-        return userMapper.getMyAttentionList(account);
+        List<User> myAttentionList = userMapper.getMyAttentionList(account);
+        for (User user : myAttentionList) {
+            if (user != null) {
+//                String decryptedPassword = stringEncryptor.decrypt(user.getPassword());
+//                user.setPassword(decryptedPassword);
+                user.setPassword(null);
+            }
+        }
+        return myAttentionList;
     }
 
     public List<User> getMyFanList(String account) {
-        return userMapper.getMyFanList(account);
+        List<User> myFanList = userMapper.getMyFanList(account);
+        for (User user : myFanList) {
+            if (user != null) {
+//                String decryptedPassword = stringEncryptor.decrypt(user.getPassword());
+//                user.setPassword(decryptedPassword);
+                user.setPassword(null);
+            }
+        }
+        return myFanList;
+    }
+
+    public String getPasswordTest(String account) {
+        String passwordTest = userMapper.getPasswordTest(account);
+        return stringEncryptor.decrypt(passwordTest);
     }
 }

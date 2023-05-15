@@ -9,6 +9,7 @@ import com.zhaoxiao.model.mine.AdminLogin;
 import com.zhaoxiao.model.mine.Feedback;
 import com.zhaoxiao.util.AccountUtil;
 import com.zhaoxiao.util.MyFile;
+import org.jasypt.encryption.StringEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ import java.util.UUID;
 public class AdminUserService {
     @Autowired
     private AdminUserMapper adminUserMapper;
+    @Autowired
+    private StringEncryptor stringEncryptor;
 
     @Value("${file.staticPatternPath}")
     private String staticPatternPath;
@@ -58,7 +61,12 @@ public class AdminUserService {
         String account = adminAccount.getAccount();
         String password = adminAccount.getPassword();
         AdminLogin adminLogin;
-        if(adminUserMapper.selectAccountPassword(account,password)==null){
+        String decryptedByAccount = stringEncryptor.decrypt(adminUserMapper.getPassword(account));
+        if (decryptedByAccount==null){
+            adminLogin = new AdminLogin(false, -1, "账号或密码错误");
+            return adminLogin;
+        }
+        if(!decryptedByAccount.equals(password)){
             adminLogin = new AdminLogin(false, -1, "账号或密码错误");
         }else {
             int permissions = adminUserMapper.selectPermissions(account);
@@ -81,7 +89,9 @@ public class AdminUserService {
     }
 
     public boolean resetPassword(String account) {
-        return adminUserMapper.resetPassword(account);
+        String encryptedPassword = stringEncryptor.encrypt("123456");
+        AdminAccount adminAccount = new AdminAccount(account,encryptedPassword);
+        return adminUserMapper.setPassword(adminAccount);
     }
 
     public boolean freezeUser(String account, boolean isFreeze) {
@@ -94,6 +104,7 @@ public class AdminUserService {
 
     public AddAdmin addAdmin() {
         String password = "123456";
+        String encryptedPassword = stringEncryptor.encrypt(password);
 
         //生成账号
         List<String> accountOldList = adminUserMapper.getAccountList();
@@ -102,7 +113,7 @@ public class AdminUserService {
 
         User user = new User();
         user.setAccount(accountNew);
-        user.setPassword(password);
+        user.setPassword(encryptedPassword);
         user.setName("用户"+accountNew);
         user.setPermissions(1);
         adminUserMapper.addAdmin(user);
@@ -158,6 +169,7 @@ public class AdminUserService {
         if (adminAccount.getPassword()==null||adminAccount.getPassword().equals("")) {
             return false;
         }
+        adminAccount.setPassword(stringEncryptor.encrypt(adminAccount.getPassword()));
         return adminUserMapper.setPassword(adminAccount);
     }
 

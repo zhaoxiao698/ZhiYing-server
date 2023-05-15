@@ -113,4 +113,10 @@ public interface UserMapper {
 
     @Select("select * from user join attention on attention.fanAccount=user.account where userAccount=#{account}")
     List<User> getMyFanList(String account);
+
+    @Select("select password from user where account=#{account}")
+    String getPasswordTest(String account);
+
+    @Select("select password from user where phone=#{phone} limit 1")
+    String getPasswordByPhone(String phone);
 }
