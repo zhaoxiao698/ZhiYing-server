@@ -177,4 +177,12 @@ public class TestController {
     public boolean collect(String account,int questionId,int table,boolean collect){
         return testService.collect(account,questionId,table,collect);
     }
+
+    @GetMapping("/getQuestionSearchList")
+    public PageInfo<? extends QuestionM> getQuestionSearchList(@RequestParam(defaultValue = "1") int pageNo,
+                                                            @RequestParam(defaultValue = "8") int pageSize,
+                                                            String searchWord, int table, String account){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(testService.getQuestionSearchList(searchWord,table,account));
+    }
 }

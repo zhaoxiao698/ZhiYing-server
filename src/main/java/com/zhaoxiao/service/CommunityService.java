@@ -166,7 +166,7 @@ public class CommunityService {
         return trendList;
     }
 
-    public List<CommentM> getCommentList(int sort, boolean order, int trendId) {
+    public List<CommentM> getCommentList(int sort, boolean order, int trendId,String account) {
         String sortS = "";
         switch (sort) {
             case 0:
@@ -181,7 +181,11 @@ public class CommunityService {
         if (order) orderS = "asc";
         else orderS = "desc";
 
-        return communityMapper.getCommentList(sortS, orderS, trendId);
+        List<CommentM> commentList = communityMapper.getCommentList(sortS, orderS, trendId);
+        for (CommentM comment : commentList) {
+            comment.setLikeStatus(communityMapper.getCommentLike(account, comment.getId()) != null);
+        }
+        return commentList;
     }
 
     public TrendM getTrend(int trendId,String account) {
@@ -653,12 +657,14 @@ public class CommunityService {
     public boolean like(String account, int trendId, boolean like) {
         if(like){
             if(communityMapper.getLike(account,trendId)==null) {
+                communityMapper.addTrendLikeNum(trendId);
                 return communityMapper.addLike(account, trendId);
             } else {
                 return true;
             }
         } else {
             if(communityMapper.getLike(account,trendId)!=null) {
+                communityMapper.subTrendLikeNum(trendId);
                 return communityMapper.removeLike(account, trendId);
             } else {
                 return true;
@@ -716,5 +722,127 @@ public class CommunityService {
                 return true;
             }
         }
+    }
+
+    public List<TrendM> getTrendSearchList(String searchWord, String account) {
+        List<TrendM> trendList;
+        trendList = communityMapper.getTrendSearchList(searchWord);
+        for (TrendM trend : trendList) {
+            trend.setTopicList(communityMapper.getTopicListOfTrend(trend.getId()));
+            trend.setUserList(communityMapper.getUserListOfTrend(trend.getId()));
+            getImageViewInfoList(trend);
+            trend.setHotComment(communityMapper.getHotComment(trend.getId()));
+            trend.setLikeStatus(communityMapper.getLike(account, trend.getId()) != null);
+            trend.setCollectStatus(communityMapper.getCollect(account, trend.getId()) != null);
+            trend.setAttentionStatus(communityMapper.getAttention(trend.getUserAccount(), account) != null);
+            switch (trend.getLinkType()){
+                case 1:
+                    trend.setLinkTypeS("文章笔记");
+                    Map<String, String> articleNoteInfo = communityMapper.getArticleNoteInfo(trend.getUserAccount(), trend.getLinkId());
+                    if (articleNoteInfo!=null) {
+                        if (articleNoteInfo.get("info") != null)
+                            trend.setLinkTitle(articleNoteInfo.get("info"));
+                        if (articleNoteInfo.get("channelName") != null)
+                            trend.setChannelName(articleNoteInfo.get("channelName"));
+                        if (articleNoteInfo.get("articleImg") != null)
+                            trend.setArticleImg(articleNoteInfo.get("articleImg"));
+                    }
+                    break;
+                case 2:
+                    trend.setLinkTypeS("题目笔记");
+                    trend.setLinkTitle(communityMapper.getTestNoteInfo(trend.getUserAccount(),trend.getLinkId(),trend.getLinkTable()));
+                    switch (trend.getLinkTable()){
+                        case 1:
+                            trend.setSubType("听力");
+                            break;
+                        case 2:
+                            trend.setSubType("选词填空");
+                            break;
+                        case 3:
+                            trend.setSubType("匹配");
+                            break;
+                        case 4:
+                            trend.setSubType("阅读理解");
+                            break;
+                        case 5:
+                            trend.setSubType("翻译");
+                            break;
+                        case 6:
+                            trend.setSubType("写作");
+                            break;
+                        case 7:
+                            trend.setSubType("完形填空");
+                            break;
+                        case 8:
+                            trend.setSubType("新题型");
+                            break;
+                    }
+                    break;
+                case 3:
+                    trend.setLinkTypeS("文章");
+                    trend.setLinkTitle(communityMapper.getArticleTitle(trend.getLinkId()));
+                    break;
+                case 4:
+                    trend.setLinkTypeS("题目");
+                    switch (trend.getLinkTable()){
+                        case 1:
+                            trend.setLinkTitle(communityMapper.getListeningInfo(trend.getLinkId()));
+                            break;
+                        case 2:
+                            trend.setLinkTitle(communityMapper.getBankedListInfo(trend.getLinkId()));
+                            break;
+                        case 3:
+                            trend.setLinkTitle(communityMapper.getMatchListInfo(trend.getLinkId()));
+                            break;
+                        case 4:
+                            trend.setLinkTitle(communityMapper.getCarefulListInfo(trend.getLinkId()));
+                            break;
+                        case 5:
+                            trend.setLinkTitle(communityMapper.getTranslationListInfo(trend.getLinkId()));
+                            break;
+                        case 6:
+                            trend.setLinkTitle(communityMapper.getWritingListInfo(trend.getLinkId()));
+                            break;
+                        case 7:
+                            trend.setLinkTitle(communityMapper.getClozeListInfo(trend.getLinkId()));
+                            break;
+                        case 8:
+                            trend.setLinkTitle(communityMapper.getNewListInfo(trend.getLinkId()));
+                            break;
+                    }
+                    break;
+                case 5:
+                    trend.setLinkTypeS("动态");
+                    trend.setLinkTitle(communityMapper.getTrendInfo(trend.getLinkId()));
+                    break;
+            }
+        }
+        return trendList;
+    }
+
+    public boolean sendComment(int trendId, String account, String info) {
+        return communityMapper.sendComment(trendId,account,info);
+    }
+
+    public boolean likeComment(int commentId, String account, boolean like) {
+        if(like){
+            if(communityMapper.getCommentLike(account,commentId)==null) {
+                communityMapper.addCommentLikeNum(commentId);
+                return communityMapper.addCommentLike(account, commentId);
+            } else {
+                return true;
+            }
+        } else {
+            if(communityMapper.getCommentLike(account,commentId)!=null) {
+                communityMapper.subCommentLikeNum(commentId);
+                return communityMapper.removeCommentLike(account, commentId);
+            } else {
+                return true;
+            }
+        }
+    }
+
+    public List<Topic> getTopicSearchList(String searchWord) {
+        return communityMapper.getTopicSearchList(searchWord);
     }
 }

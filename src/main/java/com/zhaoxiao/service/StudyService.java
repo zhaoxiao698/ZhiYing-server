@@ -193,4 +193,8 @@ public class StudyService {
             }
         }
     }
+
+    public List<ArticleM>  getArticleSearchList(String searchWord) {
+        return studyMapper.getArticleSearchList(searchWord);
+    }
 }

@@ -125,4 +125,8 @@ public interface StudyMapper {
 
     @Update("update article set count=count+1 where id=#{articleId}")
     void addArticlePlayNum(int articleId);
+
+    @Select("select a.id,title,a.img,duration,count,a.collection,addTime from article a " +
+            "where title like concat('%',#{searchWord},'%')")
+    List<ArticleM> getArticleSearchList(String searchWord);
 }

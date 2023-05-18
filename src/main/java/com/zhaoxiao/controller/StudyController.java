@@ -140,4 +140,12 @@ public class StudyController {
     public boolean channelCollect(String account,int channelId,boolean collect){
         return studyService.channelCollect(account,channelId,collect);
     }
+
+    @GetMapping("/getArticleSearchList")
+    public PageInfo<ArticleM> getArticleSearchList(@RequestParam(defaultValue = "1") int pageNo,
+                                             @RequestParam(defaultValue = "8") int pageSize,
+                                             String searchWord){
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(studyService.getArticleSearchList(searchWord));
+    }
 }

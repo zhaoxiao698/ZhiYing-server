@@ -129,25 +129,25 @@ public interface TestMapper {
     @Select("select l.id,info,audio,type,name subType,t.addTime historyTime from listening l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=1 and userAccount=#{account} order by t.addTime desc")
     List<ListeningM> getListeningHistoryList(String account);
 
-    @Select("select l.id,info,word,name subType,t.addTime from banked l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=2 and userAccount=#{account} order by t.addTime desc")
+    @Select("select l.id,info,word,name subType,t.addTime historyTime from banked l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=2 and userAccount=#{account} order by t.addTime desc")
     List<BankedM> getBankedHistoryList(String account);
 
-    @Select("select l.id,info,num,name subType,t.addTime from `match` l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=3 and userAccount=#{account} order by t.addTime desc")
+    @Select("select l.id,info,num,name subType,t.addTime historyTime from `match` l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=3 and userAccount=#{account} order by t.addTime desc")
     List<MatchM> getMatchHistoryList(String account);
 
-    @Select("select l.id,info,name subType,t.addTime from careful l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=4 and userAccount=#{account} order by t.addTime desc")
+    @Select("select l.id,info,name subType,t.addTime historyTime from careful l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=4 and userAccount=#{account} order by t.addTime desc")
     List<CarefulM> getCarefulHistoryList(String account);
 
-    @Select("select l.id,info,answer,name subType,t.addTime from translation l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=5 and userAccount=#{account} order by t.addTime desc")
+    @Select("select l.id,info,answer,name subType,t.addTime historyTime from translation l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=5 and userAccount=#{account} order by t.addTime desc")
     List<TranslationM> getTranslationHistoryList(String account);
 
-    @Select("select l.id,info,answer,name subType,t.addTime from writing l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=6 and userAccount=#{account} order by t.addTime desc")
+    @Select("select l.id,info,answer,name subType,t.addTime historyTime from writing l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=6 and userAccount=#{account} order by t.addTime desc")
     List<WritingM> getWritingHistoryList(String account);
 
-    @Select("select l.id,info,name subType,t.addTime from cloze l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=7 and userAccount=#{account} order by t.addTime desc")
+    @Select("select l.id,info,name subType,t.addTime historyTime from cloze l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=7 and userAccount=#{account} order by t.addTime desc")
     List<ClozeM> getClozeHistoryList(String account);
 
-    @Select("select l.id,info,A,B,C,D,E,F,G,type,name subType,t.addTime from new l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=8 and userAccount=#{account} order by t.addTime desc")
+    @Select("select l.id,info,A,B,C,D,E,F,G,type,name subType,t.addTime historyTime from new l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=8 and userAccount=#{account} order by t.addTime desc")
     List<NewM> getNewHistoryList(String account);
 
 
@@ -427,4 +427,30 @@ public interface TestMapper {
 
     @Delete("delete from testCollection where userAccount=#{account} and questionId=#{questionId} and `table`=#{table}")
     boolean removeCollect(String account, int questionId, int table);
+
+
+
+    @Select("select l.id,info,audio,type,name subType from listening l join subType s on l.type=s.id where info like concat('%',#{searchWord},'%')")
+    List<ListeningM> getListeningSearchList(String searchWord);
+
+    @Select("select l.id,info,word,name subType from banked l join subType s on l.type=s.id where info like concat('%',#{searchWord},'%')")
+    List<BankedM> getBankedSearchList(String searchWord);
+
+    @Select("select l.id,info,num,name subType from `match` l join subType s on l.type=s.id where info like concat('%',#{searchWord},'%')")
+    List<MatchM> getMatchSearchList(String searchWord);
+
+    @Select("select l.id,info,name subType from careful l join subType s on l.type=s.id where info like concat('%',#{searchWord},'%')")
+    List<CarefulM> getCarefulSearchList(String searchWord);
+
+    @Select("select l.id,info,answer,name subType from translation l join subType s on l.type=s.id where info like concat('%',#{searchWord},'%')")
+    List<TranslationM> getTranslationSearchList(String searchWord);
+
+    @Select("select l.id,info,answer,name subType from writing l join subType s on l.type=s.id where info like concat('%',#{searchWord},'%')")
+    List<WritingM> getWritingSearchList(String searchWord);
+
+    @Select("select l.id,info,name subType from cloze l join subType s on l.type=s.id where info like concat('%',#{searchWord},'%')")
+    List<ClozeM> getClozeSearchList(String searchWord);
+
+    @Select("select l.id,info,A,B,C,D,E,F,G,type,name subType from new l join subType s on l.type=s.id where info like concat('%',#{searchWord},'%')")
+    List<NewM> getNewSearchList(String searchWord);
 }

@@ -1299,4 +1299,98 @@ public class TestService {
             }
         }
     }
+
+    public List<? extends QuestionM> getQuestionSearchList(String searchWord, int table, String account) {
+        int i = 1;
+        switch (table){
+            case 1:
+                List<ListeningM> listeningList = testMapper.getListeningSearchList(searchWord);
+                for (ListeningM listening : listeningList) {
+                    List<ListeningQuestion> listeningQuestionList = testMapper.getListeningQuestionList(listening.getId());
+                    for (ListeningQuestion listeningQuestion : listeningQuestionList) {
+                        listeningQuestion.setOrder(i++);
+                    }
+                    listening.setListeningQuestionList(listeningQuestionList);
+                    listening.setSubQuestionNum(listeningQuestionList.size());
+                    listening.setCollectStatus(testMapper.getCollect(account, listening.getId(),table) != null);
+                }
+                return listeningList;
+            case 2:
+                List<BankedM> bankedList = testMapper.getBankedSearchList(searchWord);
+                for (BankedM banked : bankedList) {
+                    List<BankedQuestion> bankedQuestionList = testMapper.getBankedQuestionList(banked.getId());
+                    for (BankedQuestion bankedQuestion : bankedQuestionList) {
+                        bankedQuestion.setOrder(i++);
+                    }
+                    banked.setWordList(banked.getWord().split(","));
+                    banked.setBankedQuestionList(bankedQuestionList);
+                    banked.setSubQuestionNum(bankedQuestionList.size());
+                    banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),table) != null);
+                }
+                return bankedList;
+            case 3:
+                List<MatchM> matchList = testMapper.getMatchSearchList(searchWord);
+                for (MatchM match : matchList) {
+                    List<MatchQuestion> matchQuestionList = testMapper.getMatchQuestionList(match.getId());
+                    for (MatchQuestion matchQuestion : matchQuestionList) {
+                        matchQuestion.setOrder(i++);
+                    }
+                    match.setMatchQuestionList(matchQuestionList);
+                    match.setSubQuestionNum(matchQuestionList.size());
+                    match.setCollectStatus(testMapper.getCollect(account, match.getId(),table) != null);
+                }
+                return matchList;
+            case 4:
+                List<CarefulM> carefulList = testMapper.getCarefulSearchList(searchWord);
+                for (CarefulM careful : carefulList) {
+                    List<CarefulQuestion> carefulQuestionList = testMapper.getCarefulQuestionList(careful.getId());
+                    for (CarefulQuestion carefulQuestion : carefulQuestionList) {
+                        carefulQuestion.setOrder(i++);
+                    }
+                    careful.setCarefulQuestionList(carefulQuestionList);
+                    careful.setSubQuestionNum(carefulQuestionList.size());
+                    careful.setCollectStatus(testMapper.getCollect(account, careful.getId(),table) != null);
+                }
+                return carefulList;
+            case 5:
+                List<TranslationM> translationList = testMapper.getTranslationSearchList(searchWord);
+                for (TranslationM translation : translationList) {
+                    translation.setOrder(i++);
+                    translation.setCollectStatus(testMapper.getCollect(account, translation.getId(),table) != null);
+                }
+                return translationList;
+            case 6:
+                List<WritingM> writingList = testMapper.getWritingSearchList(searchWord);
+                for (WritingM writing : writingList) {
+                    writing.setOrder(i++);
+                    writing.setCollectStatus(testMapper.getCollect(account, writing.getId(),table) != null);
+                }
+                return writingList;
+            case 7:
+                List<ClozeM> clozeList = testMapper.getClozeSearchList(searchWord);
+                for (ClozeM cloze : clozeList) {
+                    List<ClozeQuestion> clozeQuestionList = testMapper.getClozeQuestionList(cloze.getId());
+                    for (ClozeQuestion clozeQuestion : clozeQuestionList) {
+                        clozeQuestion.setOrder(i++);
+                    }
+                    cloze.setClozeQuestionList(clozeQuestionList);
+                    cloze.setSubQuestionNum(clozeQuestionList.size());
+                    cloze.setCollectStatus(testMapper.getCollect(account, cloze.getId(),table) != null);
+                }
+                return clozeList;
+            case 8:
+                List<NewM> newList = testMapper.getNewSearchList(searchWord);
+                for (NewM newM : newList) {
+                    List<NewQuestion> newQuestionList = testMapper.getNewQuestionList(newM.getId());
+                    for (NewQuestion newQuestion : newQuestionList) {
+                        newQuestion.setOrder(i++);
+                    }
+                    newM.setNewQuestionList(newQuestionList);
+                    newM.setSubQuestionNum(newQuestionList.size());
+                    newM.setCollectStatus(testMapper.getCollect(account, newM.getId(),table) != null);
+                }
+                return newList;
+        }
+        return null;
+    }
 }

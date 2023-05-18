@@ -2,7 +2,7 @@
 left to right direction
 skinparam packageStyle rectangle
 actor User
-rectangle 做题测试模块 {
+rectangle 社区交流模块 {
   User --> (动态)
   (动态) ..> (查看动态) : <<include>>
   (查看动态) ..> (点赞) : <<include>>

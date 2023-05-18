@@ -2,7 +2,7 @@
 left to right direction
 skinparam packageStyle rectangle
 actor User
-rectangle 知识学习模块 {
+rectangle 个人管理模块 {
   User --> (登录注册)
   (登录注册) ..> (验证码登录) : <<include>>
   note top of (验证码登录) : 未注册的未注册的手机号验证后会直接注册.

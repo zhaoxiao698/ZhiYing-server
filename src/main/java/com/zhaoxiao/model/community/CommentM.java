@@ -23,6 +23,7 @@ public class CommentM {
     private Date addTime;
     @ApiModelProperty("点赞量")
     private int like;
+    private boolean likeStatus;
 
     public CommentM() {
     }
@@ -100,5 +101,13 @@ public class CommentM {
 
     public void setLike(int like) {
         this.like = like;
+    }
+
+    public boolean getLikeStatus() {
+        return likeStatus;
+    }
+
+    public void setLikeStatus(boolean likeStatus) {
+        this.likeStatus = likeStatus;
     }
 }

@@ -179,4 +179,35 @@ public interface CommunityMapper {
 
     @Update("update trend set share=share+1 where id=#{linkId}")
     void addTrendShareNum(int linkId);
+
+    @Select("select id,userAccount,name userName,avatar userAvatar,title,info,trend.addTime,`like`,collection,comment,share,linkId,linkType,linkTable from trend join user on user.account=trend.userAccount where " +
+            "title like concat('%',#{searchWord},'%') or info like concat('%',#{searchWord},'%')")
+    List<TrendM> getTrendSearchList(String searchWord);
+
+    @Insert("insert into comment(trendId,userAccount,info) values(#{trendId},#{account},#{info})")
+    boolean sendComment(int trendId, String account, String info);
+
+    @Select("select 1 from commentLike where userAccount=#{account} and commentId=#{commentId}")
+    Integer getCommentLike(String account, int commentId);
+
+    @Insert("insert into commentLike(userAccount,commentId) values(#{account},#{commentId})")
+    boolean addCommentLike(String account, int commentId);
+
+    @Delete("delete from commentLike where userAccount=#{account} and commentId=#{commentId}")
+    boolean removeCommentLike(String account, int commentId);
+
+    @Update("update trend set `like`=`like`+1 where id=#{trendId}")
+    void addTrendLikeNum(int trendId);
+
+    @Update("update trend set `like`=`like`-1 where id=#{trendId}")
+    void subTrendLikeNum(int trendId);
+
+    @Update("update comment set `like`=`like`+1 where id=#{commentId}")
+    void addCommentLikeNum(int commentId);
+
+    @Update("update comment set `like`=`like`-1 where id=#{commentId}")
+    void subCommentLikeNum(int commentId);
+
+    @Select("select * from topic where name like concat('%',#{searchWord},'%')")
+    List<Topic> getTopicSearchList(String searchWord);
 }

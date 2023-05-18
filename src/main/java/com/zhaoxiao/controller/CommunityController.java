@@ -37,9 +37,9 @@ public class CommunityController {
                                              @RequestParam(defaultValue = "8") int pageSize,
                                              @RequestParam(defaultValue = "0") int sort,
                                              @RequestParam(defaultValue = "false") boolean order,
-                                             int trendId){
+                                             int trendId,String account){
         PageHelper.startPage(pageNo,pageSize);
-        return new PageInfo<>(communityService.getCommentList(sort,order,trendId));
+        return new PageInfo<>(communityService.getCommentList(sort,order,trendId,account));
     }
 
     @GetMapping("/getTrend")
@@ -128,5 +128,31 @@ public class CommunityController {
     @GetMapping("/topicCollect")
     public boolean topicCollect(String account,int topicId,boolean collect){
         return communityService.topicCollect(account,topicId,collect);
+    }
+
+    @GetMapping("/getTrendSearchList")
+    public PageInfo<TrendM> getTrendSearchList(@RequestParam(defaultValue = "1") int pageNo,
+                                         @RequestParam(defaultValue = "8") int pageSize,
+                                         String searchWord, String account) {
+        PageHelper.startPage(pageNo, pageSize);
+        return new PageInfo<>(communityService.getTrendSearchList(searchWord, account));
+    }
+
+    @GetMapping("/sendComment")
+    public boolean sendComment(int trendId,String account,String info) {
+        return communityService.sendComment(trendId, account, info);
+    }
+
+    @GetMapping("/likeComment")
+    public boolean likeComment(int commentId,String account,boolean like) {
+        return communityService.likeComment(commentId, account, like);
+    }
+
+    @GetMapping("/getTopicSearchList")
+    public PageInfo<Topic> getTopicSearchList(@RequestParam(defaultValue = "1") int pageNo,
+                                      @RequestParam(defaultValue = "8") int pageSize,
+                                      String searchWord) {
+        PageHelper.startPage(pageNo,pageSize);
+        return new PageInfo<>(communityService.getTopicSearchList(searchWord));
     }
 }
