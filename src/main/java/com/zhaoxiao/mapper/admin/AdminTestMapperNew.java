@@ -14,31 +14,31 @@ public interface AdminTestMapperNew {
     @Select("select id,listeningId superQuestionId,A,B,C,D,answer from listeningQuestion where listeningId = #{listeningId}")
     List<SubQuestionNew> getListeningQuestionList(int listeningId);
 
-    @Select("select id,info,word,questionBankId from banked where questionBankId=#{questionBankId}")
+    @Select("select id,info,word,type,questionBankId from banked where questionBankId=#{questionBankId}")
     List<QuestionNew> getBankedList(int questionBankId);
 
     @Select("select id,bankedId superQuestionId,answer from bankedQuestion where bankedId = #{bankedId}")
     List<SubQuestionNew> getBankedQuestionList(int bankedId);
 
-    @Select("select id,info,num,questionBankId from `match` where questionBankId=#{questionBankId}")
+    @Select("select id,info,num,type,questionBankId from `match` where questionBankId=#{questionBankId}")
     List<QuestionNew> getMatchList(int questionBankId);
 
     @Select("select id,matchId superQuestionId,stem,answer from matchQuestion where matchId = #{matchId}")
     List<SubQuestionNew> getMatchQuestionList(int matchId);
 
-    @Select("select id,info,questionBankId from careful where questionBankId=#{questionBankId}")
+    @Select("select id,info,type,questionBankId from careful where questionBankId=#{questionBankId}")
     List<QuestionNew> getCarefulList(int questionBankId);
 
     @Select("select id,carefulId superQuestionId,stem,A,B,C,D,answer from carefulQuestion where carefulId = #{carefulId}")
     List<SubQuestionNew> getCarefulQuestionList(int carefulId);
 
-    @Select("select id,info,answer,questionBankId from translation where questionBankId=#{questionBankId}")
+    @Select("select id,info,answer,type,questionBankId from translation where questionBankId=#{questionBankId}")
     List<QuestionNew> getTranslationList(int questionBankId);
 
-    @Select("select id,info,answer,questionBankId from writing where questionBankId=#{questionBankId} ${type}")
+    @Select("select id,info,answer,type,questionBankId,img from writing where questionBankId=#{questionBankId} ${type}")
     List<QuestionNew> getWritingList(int questionBankId, String type);
 
-    @Select("select id,info,questionBankId from cloze where questionBankId=#{questionBankId}")
+    @Select("select id,info,type,questionBankId from cloze where questionBankId=#{questionBankId}")
     List<QuestionNew> getClozeList(int questionBankId);
 
     @Select("select id,clozeId superQuestionId,A,B,C,D,answer from clozeQuestion where clozeId = #{clozeId}")
@@ -241,4 +241,13 @@ public interface AdminTestMapperNew {
 
     @Select("select * from questionBank")
     List<QuestionBank> getQuestionBankList();
+
+    @Update("update listening set num=num+1 where id=#{id}")
+    void addListeningQuestionNum(int id);
+
+    @Select("select listeningId from listeningQuestion where id=#{id}")
+    int getSuperQuestionId(int id);
+
+    @Update("update listening set num=num-1 where id=#{id}")
+    void subListeningQuestionNum(int superQuestionId);
 }

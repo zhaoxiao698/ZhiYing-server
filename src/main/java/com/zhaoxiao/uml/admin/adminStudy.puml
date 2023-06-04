@@ -4,19 +4,19 @@ skinparam packageStyle rectangle
 actor User
 rectangle 学习内容管理模块 {
   User --> (分类管理)
-  (分类管理) ..> (查看分类) : <<include>>
-  (分类管理) ..> (添加分类) : <<include>>
-  (分类管理) ..> (修改分类) : <<include>>
   (分类管理) ..> (删除分类) : <<include>>
+  (分类管理) ..> (修改分类) : <<include>>
+  (分类管理) ..> (添加分类) : <<include>>
+  (分类管理) ..> (查看分类) : <<include>>
   User --> (频道管理)
-  (频道管理) ..> (查看频道) : <<include>>
-  (频道管理) ..> (添加频道) : <<include>>
-  (频道管理) ..> (修改频道) : <<include>>
   (频道管理) ..> (删除频道) : <<include>>
+  (频道管理) ..> (修改频道) : <<include>>
+  (频道管理) ..> (添加频道) : <<include>>
+  (频道管理) ..> (查看频道) : <<include>>
   User --> (文章管理)
-  (文章管理) ..> (查看文章) : <<include>>
-  (文章管理) ..> (添加文章) : <<include>>
-  (文章管理) ..> (修改文章) : <<include>>
   (文章管理) ..> (删除文章) : <<include>>
+  (文章管理) ..> (修改文章) : <<include>>
+  (文章管理) ..> (添加文章) : <<include>>
+  (文章管理) ..> (查看文章) : <<include>>
 }
 @enduml

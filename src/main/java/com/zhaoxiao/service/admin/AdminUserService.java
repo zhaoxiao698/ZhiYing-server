@@ -146,7 +146,9 @@ public class AdminUserService {
                            String name,
                            MultipartFile avatarImg,
                            int age,
-                           String sex) {
+                           String sex,
+                           String sign,
+                           String mail) {
         String avatar = addFile(avatarImg,"user/avatar");
 
         //删除原来的文件
@@ -162,6 +164,8 @@ public class AdminUserService {
         user.setAvatar(avatar);
         user.setAge(age);
         user.setSex(sex);
+        user.setSign(sign);
+        user.setMail(mail);
         return adminUserMapper.setUser(user);
     }
 
@@ -173,13 +177,15 @@ public class AdminUserService {
         return adminUserMapper.setPassword(adminAccount);
     }
 
-    public boolean setUserWithNoImg(String account, String phone, String name, int age, String sex) {
+    public boolean setUserWithNoImg(String account, String phone, String name, int age, String sex, String sign, String mail) {
         User user = new User();
         user.setAccount(account);
         user.setPhone(phone);
         user.setName(name);
         user.setAge(age);
         user.setSex(sex);
+        user.setSign(sign);
+        user.setMail(mail);
         return adminUserMapper.setUserWithNoImg(user);
     }
 

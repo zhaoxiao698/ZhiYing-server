@@ -81,7 +81,7 @@ public class AdminTestControllerNew {
                                String word,
                                MultipartFile audioFile,
                                int type,
-//                               int num,
+                               @RequestParam(defaultValue = "0") int num,
                                String A,
                                String B,
                                String C,
@@ -91,7 +91,7 @@ public class AdminTestControllerNew {
                                String G,
                                String answer,
                                MultipartFile imgFile){
-        return adminTestServiceNew.addQuestion(info, questionBankId, word, audioFile, type,/* num,*/ A, B, C, D, E, F, G, answer, imgFile);
+        return adminTestServiceNew.addQuestion(info, questionBankId, word, audioFile, type, num, A, B, C, D, E, F, G, answer, imgFile);
     }
 
     @ApiOperation(value = "添加子题目",notes = "和添加父题目一样只要弄输入框把需要的参数传进来就行，只是这个没有文件和富文本的需求")
@@ -126,7 +126,7 @@ public class AdminTestControllerNew {
                                String word,
                                MultipartFile audioFile,
                                int type,
-//                               int num,
+                               @RequestParam(defaultValue = "0") int num,
                                String A,
                                String B,
                                String C,
@@ -136,7 +136,7 @@ public class AdminTestControllerNew {
                                String G,
                                String answer,
                                MultipartFile imgFile){
-        return adminTestServiceNew.setQuestion(id, info, questionBankId, word, audioFile, type, /*num,*/ A, B, C, D, E, F, G, answer, imgFile);
+        return adminTestServiceNew.setQuestion(id, info, questionBankId, word, audioFile, type, num, A, B, C, D, E, F, G, answer, imgFile);
     }
 
     @ApiOperation(value = "修改子题目",notes = "除了需要传入需要修改的子题目的id，其他参数和添加子题目一样")

@@ -143,6 +143,8 @@ public class AdminUserController {
             @ApiImplicitParam(name = "(avatarFile)",value = "头像文件--只能上传图片文件",required = true),
             @ApiImplicitParam(name = "age",value = "年龄",required = true),
             @ApiImplicitParam(name = "sex",value = "性别",required = true),
+            @ApiImplicitParam(name = "sign",value = "签名",required = true),
+            @ApiImplicitParam(name = "mail",value = "邮箱",required = true),
     })
     @PostMapping("/setUser")
     public boolean setUser(String account,
@@ -150,11 +152,13 @@ public class AdminUserController {
                            String name,
                            MultipartFile avatarFile,
                            int age,
-                           String sex){
+                           String sex,
+                           String sign,
+                           String mail){
         if (avatarFile==null||avatarFile.isEmpty()) {
             // 如果上传的文件为空，则返回错误信息或者抛出异常
             // ...
-            return adminUserService.setUserWithNoImg(account, phone, name, age, sex);
+            return adminUserService.setUserWithNoImg(account, phone, name, age, sex, sign, mail);
         }
         boolean isImage = false;
         try {
@@ -170,7 +174,7 @@ public class AdminUserController {
         }
         // 根据isImage的值返回相应的结果
         if (isImage) {
-            return adminUserService.setUser(account, phone, name, avatarFile, age, sex);
+            return adminUserService.setUser(account, phone, name, avatarFile, age, sex, sign, mail);
         } else {
             // 如果上传的不是图片，则返回错误信息或者抛出异常
             // ...

@@ -93,7 +93,7 @@ public interface CommunityMapper {
     @Select("select info from testNote where userAccount=#{account} and questionId=#{questionId} and `table`=#{table}")
     String getTestNoteInfo(String account, int questionId, int table);
 
-    @Select("select info from article where id=#{id}")
+    @Select("select title from article where id=#{id}")
     String getArticleTitle(int id);
 
     @Select("select info from listening where id=#{id}")

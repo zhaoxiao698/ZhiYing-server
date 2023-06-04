@@ -38,7 +38,7 @@ public interface TestMapper {
     @Select("select l.id,info,answer,name subType from translation l join subType s on l.type=s.id where questionBankId=#{questionBankId} ${order} ${limit}")
     List<TranslationM> getTranslationList(String order, String limit, int questionBankId);
 
-    @Select("select l.id,info,answer,name subType from writing l join subType s on l.type=s.id where questionBankId=#{questionBankId} ${type} ${order} ${limit}")
+    @Select("select l.id,info,img,answer,name subType from writing l join subType s on l.type=s.id where questionBankId=#{questionBankId} ${type} ${order} ${limit}")
     List<WritingM> getWritingList(String order, String limit, int questionBankId, String type);
 
     @Select("select l.id,info,name subType from cloze l join subType s on l.type=s.id where questionBankId=#{questionBankId} ${order} ${limit}")
@@ -92,7 +92,7 @@ public interface TestMapper {
     @Select("select l.id,info,answer,name subType from translation l join testCollection t on l.id=t.questionId join subType s on l.type=s.id where `table`=5 and userAccount=#{account} order by t.addTime desc")
     List<TranslationM> getTranslationCollectionList(String account);
 
-    @Select("select l.id,info,answer,name subType from writing l join testCollection t on l.id=t.questionId join subType s on l.type=s.id where `table`=6 and userAccount=#{account} order by t.addTime desc")
+    @Select("select l.id,info,img,answer,name subType from writing l join testCollection t on l.id=t.questionId join subType s on l.type=s.id where `table`=6 and userAccount=#{account} order by t.addTime desc")
     List<WritingM> getWritingCollectionList(String account);
 
     @Select("select l.id,info,name subType from cloze l join testCollection t on l.id=t.questionId join subType s on l.type=s.id where `table`=7 and userAccount=#{account} order by t.addTime desc")
@@ -116,7 +116,7 @@ public interface TestMapper {
     @Select("select l.id,info,answer,name subType from translation l join subType s on l.type=s.id where l.id=#{questionId}")
     TranslationM getTranslationQuestionById(int questionId);
 
-    @Select("select l.id,info,answer,name subType from writing l join subType s on l.type=s.id where l.id=#{questionId}")
+    @Select("select l.id,info,img,answer,name subType from writing l join subType s on l.type=s.id where l.id=#{questionId}")
     WritingM getWritingQuestionById(int questionId);
 
     @Select("select l.id,info,name subType from cloze l join subType s on l.type=s.id where l.id=#{questionId}")
@@ -141,7 +141,7 @@ public interface TestMapper {
     @Select("select l.id,info,answer,name subType,t.addTime historyTime from translation l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=5 and userAccount=#{account} order by t.addTime desc")
     List<TranslationM> getTranslationHistoryList(String account);
 
-    @Select("select l.id,info,answer,name subType,t.addTime historyTime from writing l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=6 and userAccount=#{account} order by t.addTime desc")
+    @Select("select l.id,info,img,answer,name subType,t.addTime historyTime from writing l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=6 and userAccount=#{account} order by t.addTime desc")
     List<WritingM> getWritingHistoryList(String account);
 
     @Select("select l.id,info,name subType,t.addTime historyTime from cloze l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=7 and userAccount=#{account} order by t.addTime desc")
@@ -191,7 +191,7 @@ public interface TestMapper {
     @Select("select l.id,info,answer,name subType,t.addTime from translation l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=5 and userAccount=#{account} and `right`=false order by t.addTime desc")
     List<TranslationM> getTranslationWrongList(String account);
 
-    @Select("select l.id,info,answer,name subType,t.addTime from writing l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=6 and userAccount=#{account} and `right`=false order by t.addTime desc")
+    @Select("select l.id,info,img,answer,name subType,t.addTime from writing l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=6 and userAccount=#{account} and `right`=false order by t.addTime desc")
     List<WritingM> getWritingWrongList(String account);
 
     @Select("select l.id,info,name subType,t.addTime from cloze l join testRecord t on l.id=t.questionId join subType s on l.type=s.id where `table`=7 and userAccount=#{account} and `right`=false order by t.addTime desc")
@@ -272,7 +272,7 @@ public interface TestMapper {
     @Select("select l.id,info,answer,name subType from translation l join subType s on l.type=s.id join `true` t on l.id=t.questionId where truePaperId=#{truePaperId} and `table`=5 order by `order`")
     List<TranslationM> getTranslationListTrue(int truePaperId);
 
-    @Select("select l.id,info,answer,name subType from writing l join subType s on l.type=s.id join `true` t on l.id=t.questionId where truePaperId=#{truePaperId} and `table`=6 order by `order`")
+    @Select("select l.id,info,img,answer,name subType from writing l join subType s on l.type=s.id join `true` t on l.id=t.questionId where truePaperId=#{truePaperId} and `table`=6 order by `order`")
     List<WritingM> getWritingListTrue(int truePaperId);
 
     @Select("select l.id,info,name subType from cloze l join subType s on l.type=s.id join `true` t on l.id=t.questionId where truePaperId=#{truePaperId} and `table`=7 order by `order`")
@@ -322,101 +322,101 @@ public interface TestMapper {
 
 
     @Select("select l.id,info,audio,type,name subType from listening l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${num} ${type} ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and ((r.questionId is null or r.right=0) or r.userAccount!=#{account} or `table`!=1) ${num} ${type} ${order} ${limit}")
     List<ListeningM> getListeningList0(String order, String limit, int questionBankId, String num, String type,String account);
 
     @Select("select l.id,info,word,name subType from banked l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and ((r.questionId is null or r.right=0) or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<BankedM> getBankedList0(String order, String limit, int questionBankId,String account);
 
     @Select("select l.id,info,num,name subType from `match` l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and ((r.questionId is null or r.right=0) or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<MatchM> getMatchList0(String order, String limit, int questionBankId,String account);
 
     @Select("select l.id,info,name subType from careful l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and ((r.questionId is null or r.right=0) or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<CarefulM> getCarefulList0(String order, String limit, int questionBankId,String account);
 
     @Select("select l.id,info,answer,name subType from translation l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and ((r.questionId is null or r.right=0) or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<TranslationM> getTranslationList0(String order, String limit, int questionBankId,String account);
 
-    @Select("select l.id,info,answer,name subType from writing l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${type} ${order} ${limit}")
+    @Select("select l.id,info,img,answer,name subType from writing l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and ((r.questionId is null or r.right=0) or r.userAccount!=#{account} or `table`!=1) ${type} ${order} ${limit}")
     List<WritingM> getWritingList0(String order, String limit, int questionBankId, String type,String account);
 
     @Select("select l.id,info,name subType from cloze l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and ((r.questionId is null or r.right=0) or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<ClozeM> getClozeList0(String order, String limit, int questionBankId,String account);
 
     @Select("select l.id,info,A,B,C,D,E,F,G,type,name subType from new l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and (r.questionId is null or r.right=0) and `table`=1 ${type} ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and ((r.questionId is null or r.right=0) or r.userAccount!=#{account} or `table`!=1) ${type} ${order} ${limit}")
     List<NewM> getNewList0(String order, String limit, int questionBankId, String type,String account);
 
 
     @Select("select l.id,info,audio,type,name subType from listening l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${num} ${type} ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.questionId is null or r.userAccount!=#{account} or `table`!=1) ${num} ${type} ${order} ${limit}")
     List<ListeningM> getListeningList1(String order, String limit, int questionBankId, String num, String type,String account);
 
     @Select("select l.id,info,word,name subType from banked l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.questionId is null or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<BankedM> getBankedList1(String order, String limit, int questionBankId,String account);
 
     @Select("select l.id,info,num,name subType from `match` l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.questionId is null or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<MatchM> getMatchList1(String order, String limit, int questionBankId,String account);
 
     @Select("select l.id,info,name subType from careful l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.questionId is null or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<CarefulM> getCarefulList1(String order, String limit, int questionBankId,String account);
 
     @Select("select l.id,info,answer,name subType from translation l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.questionId is null or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<TranslationM> getTranslationList1(String order, String limit, int questionBankId,String account);
 
-    @Select("select l.id,info,answer,name subType from writing l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${type} ${order} ${limit}")
+    @Select("select l.id,info,img,answer,name subType from writing l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and (r.questionId is null or r.userAccount!=#{account} or `table`!=1) ${type} ${order} ${limit}")
     List<WritingM> getWritingList1(String order, String limit, int questionBankId, String type,String account);
 
     @Select("select l.id,info,name subType from cloze l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.questionId is null or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<ClozeM> getClozeList1(String order, String limit, int questionBankId,String account);
 
     @Select("select l.id,info,A,B,C,D,E,F,G,type,name subType from new l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.questionId is null and `table`=1 ${type} ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.questionId is null or r.userAccount!=#{account} or `table`!=1) ${type} ${order} ${limit}")
     List<NewM> getNewList1(String order, String limit, int questionBankId, String type,String account);
 
 
     @Select("select l.id,info,audio,type,name subType from listening l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${num} ${type} ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.right=0 or r.userAccount!=#{account} or `table`!=1) ${num} ${type} ${order} ${limit}")
     List<ListeningM> getListeningList2(String order, String limit, int questionBankId, String num, String type,String account);
 
     @Select("select l.id,info,word,name subType from banked l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.right=0 or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<BankedM> getBankedList2(String order, String limit, int questionBankId,String account);
 
     @Select("select l.id,info,num,name subType from `match` l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.right=0 or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<MatchM> getMatchList2(String order, String limit, int questionBankId,String account);
 
     @Select("select l.id,info,name subType from careful l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.right=0 or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<CarefulM> getCarefulList2(String order, String limit, int questionBankId,String account);
 
     @Select("select l.id,info,answer,name subType from translation l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.right=0 or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<TranslationM> getTranslationList2(String order, String limit, int questionBankId,String account);
 
-    @Select("select l.id,info,answer,name subType from writing l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${type} ${order} ${limit}")
+    @Select("select l.id,info,img,answer,name subType from writing l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
+            "where questionBankId=#{questionBankId} and (r.right=0 or r.userAccount!=#{account} or `table`!=1) ${type} ${order} ${limit}")
     List<WritingM> getWritingList2(String order, String limit, int questionBankId, String type,String account);
 
     @Select("select l.id,info,name subType from cloze l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.right=0 or r.userAccount!=#{account} or `table`!=1) ${order} ${limit}")
     List<ClozeM> getClozeList2(String order, String limit, int questionBankId,String account);
 
     @Select("select l.id,info,A,B,C,D,E,F,G,type,name subType from new l join subType s on l.type=s.id left join testRecord r on l.id=r.questionId " +
-            "where questionBankId=#{questionBankId} and r.userAccount=#{account} and r.right=0 and `table`=1 ${type} ${order} ${limit}")
+            "where questionBankId=#{questionBankId} and (r.right=0 or r.userAccount!=#{account} or `table`!=1) ${type} ${order} ${limit}")
     List<NewM> getNewList2(String order, String limit, int questionBankId, String type,String account);
 
     @Select("select 1 from testCollection where userAccount=#{account} and questionId=#{questionId} and `table`=#{table}")
@@ -445,7 +445,7 @@ public interface TestMapper {
     @Select("select l.id,info,answer,name subType from translation l join subType s on l.type=s.id where info like concat('%',#{searchWord},'%')")
     List<TranslationM> getTranslationSearchList(String searchWord);
 
-    @Select("select l.id,info,answer,name subType from writing l join subType s on l.type=s.id where info like concat('%',#{searchWord},'%')")
+    @Select("select l.id,info,img,answer,name subType from writing l join subType s on l.type=s.id where info like concat('%',#{searchWord},'%')")
     List<WritingM> getWritingSearchList(String searchWord);
 
     @Select("select l.id,info,name subType from cloze l join subType s on l.type=s.id where info like concat('%',#{searchWord},'%')")

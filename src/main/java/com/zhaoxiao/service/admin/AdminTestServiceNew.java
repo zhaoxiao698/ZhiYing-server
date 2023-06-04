@@ -60,7 +60,9 @@ public class AdminTestServiceNew {
                     for (SubQuestionNew bankedQuestion : subQuestionNewList) {
                         bankedQuestion.setOrder(i++);
                     }
-                    questionNew.setWordList(questionNew.getWord().split(","));
+                    if (questionNew.getWord()!=null&& !questionNew.getWord().equals("")) {
+                        questionNew.setWordList(questionNew.getWord().split(","));
+                    }
                     questionNew.setSubQuestionNewList(subQuestionNewList);
                     questionNew.setSubQuestionNum(subQuestionNewList.size());
                 }
@@ -341,6 +343,7 @@ public class AdminTestServiceNew {
             case 2:
             case 3:
             case 4:
+                adminTestMapperNew.addListeningQuestionNum(subQuestionNew.getSuperQuestionId());
                 return adminTestMapperNew.addListeningQuestion(subQuestionNew);
             case 5:
                 return adminTestMapperNew.addBankedQuestion(subQuestionNew);
@@ -369,7 +372,7 @@ public class AdminTestServiceNew {
                                String word,
                                MultipartFile audioFile,
                                int type,
-//                               int num,
+                               int num,
                                String A,
                                String B,
                                String C,
@@ -425,7 +428,7 @@ public class AdminTestServiceNew {
         questionNew.setWord(word);
         questionNew.setAudio(audio);
         questionNew.setType(type);
-//        questionNew.setNum(num);
+        questionNew.setNum(num);
         questionNew.setA(A);
         questionNew.setB(B);
         questionNew.setC(C);
@@ -489,7 +492,7 @@ public class AdminTestServiceNew {
         return img;
     }
 
-    public boolean setQuestion(int id, String info, int questionBankId, String word, MultipartFile audioFile, int type, /*int num,*/ String A, String B, String C, String D, String E, String F, String G, String answer, MultipartFile imgFile) {
+    public boolean setQuestion(int id, String info, int questionBankId, String word, MultipartFile audioFile, int type, int num, String A, String B, String C, String D, String E, String F, String G, String answer, MultipartFile imgFile) {
         String audio = "";
         String img = "";
 
@@ -541,7 +544,7 @@ public class AdminTestServiceNew {
         questionNew.setWord(word);
         questionNew.setAudio(audio);
         questionNew.setType(type);
-//        questionNew.setNum(num);
+        questionNew.setNum(num);
         questionNew.setA(A);
         questionNew.setB(B);
         questionNew.setC(C);
@@ -678,6 +681,8 @@ public class AdminTestServiceNew {
             case 2:
             case 3:
             case 4:
+                int superQuestionId = adminTestMapperNew.getSuperQuestionId(id);
+                adminTestMapperNew.subListeningQuestionNum(superQuestionId);
                 return adminTestMapperNew.removeListeningQuestion(id);
             case 5:
                 return adminTestMapperNew.removeBankedQuestion(id);

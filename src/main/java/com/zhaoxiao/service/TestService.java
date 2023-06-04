@@ -105,7 +105,9 @@ public class TestService {
             for (BankedQuestion bankedQuestion : bankedQuestionList) {
                 bankedQuestion.setOrder(i++);
             }
-            banked.setWordList(banked.getWord().split(","));
+            if (banked.getWord()!=null&& !banked.getWord().equals("")) {
+                banked.setWordList(banked.getWord().split(","));
+            }
             banked.setBankedQuestionList(bankedQuestionList);
             banked.setSubQuestionNum(bankedQuestionList.size());
             banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),2) != null);
@@ -622,7 +624,9 @@ public class TestService {
                     for (BankedQuestion bankedQuestion : bankedQuestionList) {
                         bankedQuestion.setOrder(i++);
                     }
-                    banked.setWordList(banked.getWord().split(","));
+                    if (banked.getWord()!=null&& !banked.getWord().equals("")) {
+                        banked.setWordList(banked.getWord().split(","));
+                    }
                     banked.setBankedQuestionList(bankedQuestionList);
                     banked.setSubQuestionNum(bankedQuestionList.size());
                     banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),table) != null);
@@ -713,7 +717,9 @@ public class TestService {
                 for (BankedQuestion bankedQuestion : bankedQuestionList) {
                     bankedQuestion.setOrder(i++);
                 }
-                banked.setWordList(banked.getWord().split(","));
+                if (banked.getWord()!=null&& !banked.getWord().equals("")) {
+                    banked.setWordList(banked.getWord().split(","));
+                }
                 banked.setBankedQuestionList(bankedQuestionList);
                 banked.setSubQuestionNum(bankedQuestionList.size());
                 banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),table) != null);
@@ -794,7 +800,9 @@ public class TestService {
                     for (BankedQuestion bankedQuestion : bankedQuestionList) {
                         bankedQuestion.setOrder(i++);
                     }
-                    banked.setWordList(banked.getWord().split(","));
+                    if (banked.getWord()!=null&& !banked.getWord().equals("")) {
+                        banked.setWordList(banked.getWord().split(","));
+                    }
                     banked.setBankedQuestionList(bankedQuestionList);
                     banked.setSubQuestionNum(bankedQuestionList.size());
                     banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),table) != null);
@@ -934,7 +942,9 @@ public class TestService {
                     for (BankedQuestion bankedQuestion : bankedQuestionList) {
                         bankedQuestion.setOrder(i++);
                     }
-                    banked.setWordList(banked.getWord().split(","));
+                    if (banked.getWord()!=null&& !banked.getWord().equals("")) {
+                        banked.setWordList(banked.getWord().split(","));
+                    }
                     banked.setBankedQuestionList(bankedQuestionList);
                     banked.setSubQuestionNum(bankedQuestionList.size());
                     banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),table) != null);
@@ -1032,7 +1042,9 @@ public class TestService {
             for (BankedQuestion bankedQuestion : bankedQuestionList) {
                 bankedQuestion.setOrder(i++);
             }
-            banked.setWordList(banked.getWord().split(","));
+            if (banked.getWord()!=null&& !banked.getWord().equals("")) {
+                banked.setWordList(banked.getWord().split(","));
+            }
             banked.setBankedQuestionList(bankedQuestionList);
             banked.setSubQuestionNum(bankedQuestionList.size());
             banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),2) != null);
@@ -1192,7 +1204,9 @@ public class TestService {
             for (BankedQuestion bankedQuestion : bankedQuestionList) {
                 bankedQuestion.setOrder(i++);
             }
-            banked.setWordList(banked.getWord().split(","));
+            if (banked.getWord()!=null&& !banked.getWord().equals("")) {
+                banked.setWordList(banked.getWord().split(","));
+            }
             banked.setBankedQuestionList(bankedQuestionList);
             banked.setSubQuestionNum(bankedQuestionList.size());
             banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),2) != null);
@@ -1322,7 +1336,9 @@ public class TestService {
                     for (BankedQuestion bankedQuestion : bankedQuestionList) {
                         bankedQuestion.setOrder(i++);
                     }
-                    banked.setWordList(banked.getWord().split(","));
+                    if (banked.getWord()!=null&& !banked.getWord().equals("")) {
+                        banked.setWordList(banked.getWord().split(","));
+                    }
                     banked.setBankedQuestionList(bankedQuestionList);
                     banked.setSubQuestionNum(bankedQuestionList.size());
                     banked.setCollectStatus(testMapper.getCollect(account, banked.getId(),table) != null);
